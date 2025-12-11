@@ -6,24 +6,61 @@ import { GeistMono } from "geist/font/mono";
 import type { Metadata } from "next";
 // import { GeistSans } from "geist/font/sans";
 // import { Young_Serif } from "next/font/google";
-import { Alata, Cal_Sans } from "next/font/google";
+import { Alata } from "next/font/google";
 import Footer from "./components/footer";
 import { baseUrl } from "./sitemap";
 
 export const metadata: Metadata = {
 	metadataBase: new URL(baseUrl),
 	title: {
-		default: "Next.js Portfolio Starter",
-		template: "%s | Next.js Portfolio Starter",
+		default: "Julian Kominovic - Frontend developer",
+		template: "%s | Julian Kominovic - Frontend developer",
 	},
-	description: "This is my portfolio.",
+	keywords: [
+		"Julian",
+		"Kominovic",
+		"Frontend developer",
+		"Web developer",
+		"Fintech",
+		"Argentina",
+		"Buenos Aires",
+		"Smart notes",
+		"Notes",
+		"Bookmarks",
+		"Takes",
+		"Resources",
+		"Web development",
+		"Frontend",
+		"Backend",
+		"React",
+		"Next.js",
+		"TailwindCSS",
+		"Javascript",
+		"Typescript",
+	],
+	description:
+		"Frontend developer based in Buenos Aires, Argentina with more than 4 years of experience in fintech products. I enjoy creating development tools to make developers' life easier.",
 	openGraph: {
-		title: "My Portfolio",
-		description: "This is my portfolio.",
+		title: "Julian Kominovic - Frontend developer",
+		description:
+			"Frontend developer based in Buenos Aires, Argentina with more than 4 years of experience in fintech products. I enjoy creating development tools to make developers' life easier.",
 		url: baseUrl,
-		siteName: "My Portfolio",
+		siteName: "Julian Kominovic - Frontend developer",
 		locale: "en_US",
 		type: "website",
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: "Julian Kominovic - Frontend developer",
+		description:
+			"Frontend developer based in Buenos Aires, Argentina with more than 4 years of experience in fintech products. I enjoy creating development tools to make developers' life easier.",
+		images: [
+			{
+				url: "/og/og.png",
+			},
+		],
+		creator: "@juliankominovic",
+		creatorId: "@juliankominovic",
 	},
 	robots: {
 		index: true,
