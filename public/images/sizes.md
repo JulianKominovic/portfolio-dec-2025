@@ -1,0 +1,1 @@
+Recomendede 16/9 for images webp
