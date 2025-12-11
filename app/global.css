@@ -65,6 +65,17 @@
 	}
 }
 
+@layer components {
+	.flex-wrap-balance {
+		flex-wrap: wrap;
+	}
+	@supports (flex-wrap: balance) {
+		.flex-wrap-balance {
+			flex-wrap: balance;
+		}
+	}
+}
+
 @media (prefers-color-scheme: dark) {
 	:root {
 		--sh-class: #4c97f8;

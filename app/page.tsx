@@ -1,5 +1,10 @@
 import clsx from "clsx";
-import { ExternalLinkIcon } from "lucide-react";
+import {
+	ArrowDownToLine,
+	ArrowUp,
+	ArrowUpRight,
+	ExternalLinkIcon,
+} from "lucide-react";
 import Image from "next/image";
 import {
 	Carousel,
@@ -8,6 +13,8 @@ import {
 	CarouselNext,
 	CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { cn } from "@/lib/utils";
 import buenosairesmini from "./assets/buenos-aires-mini.png";
 import backendfrontend1 from "./assets/frontend-memes/backend-frontend-1.jpg";
 import backendfrontend2 from "./assets/frontend-memes/backend-frontend-2.jpeg";
@@ -18,7 +25,7 @@ import messiworldcup from "./assets/messi-world-cup.gif";
 import profile from "./assets/profile.jpeg";
 import xprofilepic from "./assets/x-profile-pic.jpg";
 import GitHubActivity from "./components/github-activity";
-import { WORKING_EXPERIENCE } from "./data/bio";
+import { PROJECTS, WORKING_EXPERIENCE } from "./data/bio";
 
 export default function Page() {
 	return (
@@ -42,7 +49,7 @@ export default function Page() {
 						<span className="text-neutral-400">Hey {"I'm "}</span>{" "}
 						<span>Julian Kominovic</span>
 					</h1>
-					<h2 className="font-serif text-4xl">Frontend Developer</h2>
+					<h2 className="font-serif text-4xl font-bold">Frontend Developer</h2>
 					<p className="text-neutral-400 max-w-[40ch]">
 						more than 4 years of experience in fintech products. I enjoy
 						creating development tools to make developers' life easier.
@@ -108,7 +115,7 @@ export default function Page() {
 						className="bg-neutral-100 squircle"
 					/>
 					<p className="px-2 text-sm text-neutral-400">
-						based in{" "}
+						living in{" "}
 						<span className="text-neutral-900">Buenos Aires, Argentina</span>
 					</p>
 				</section>
@@ -238,6 +245,135 @@ export default function Page() {
 					<GitHubActivity />
 				</section>
 			</main>
+			<section className="py-48 mx-auto max-w-5xl px-4">
+				<h2 className="text-6xl font-bold font-serif text-center leading-loose">
+					Projects
+				</h2>
+				<p className="text-center text-2xl text-neutral-400 mb-8">
+					Apps, proof of concepts, excuses to learn.
+				</p>
+				<Tabs defaultValue={PROJECTS[0].title} className="gap-12">
+					<TabsList className="bg-transparent h-auto flex-wrap-balance justify-center mx-auto">
+						{PROJECTS.map((project) => (
+							<TabsTrigger
+								className="size-32 squircle shadow-none! flex-auto group p-1"
+								key={`${project.title}title`}
+								value={project.title}
+							>
+								<Image
+									src={project.logo}
+									alt={project.title}
+									width={96}
+									height={96}
+									unoptimized
+									className="size-24 object-cover squircle saturate-0 opacity-20 group-data-[state=active]:opacity-100 group-data-[state=active]:saturate-100 group-hover:saturate-100 transition-all duration-300"
+								/>
+							</TabsTrigger>
+						))}
+					</TabsList>
+					{PROJECTS.map((project) => (
+						<TabsContent
+							id={project.title}
+							key={project.title}
+							value={project.title}
+							className="max-w-3xl mx-auto w-full relative"
+						>
+							<p
+								className={cn(
+									" font-bold font-serif px-2 leading-relaxed rounded-md flex items-center justify-center w-fit",
+									project.status === "In progress" &&
+										"text-yellow-500 bg-yellow-500/10",
+									project.status === "Online" &&
+										"text-green-500 bg-green-500/10",
+									project.status === "Deprecated" &&
+										"text-neutral-400 bg-neutral-400/10",
+								)}
+							>
+								{project.status}
+							</p>
+							<header className="sticky top-0 bg-white flex justify-between items-center flex-wrap gap-4 group">
+								<h3 className="text-4xl font-bold font-serif leading-loose">
+									<a
+										className="flex items-center gap-2"
+										href={project.url}
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										<span className="text-neutral-900 font-bold underline underline-offset-4">
+											{project.title}
+										</span>{" "}
+										<ArrowUpRight className="size-6 mt-2" strokeWidth={3} />
+										<span className="text-neutral-400 text-sm mt-1">
+											({project.year})
+										</span>
+									</a>
+								</h3>
+								{/* <a
+									href={`#${project.title}`}
+									className="text-neutral-500 text-sm mt-1 items-center gap-1 bg-neutral-100 px-2 py-1 rounded-md w-fit flex group-[]:"
+								>
+									Go back to top <ArrowUp className="size-4" />
+								</a> */}
+							</header>
+							<p className="text-lg text-neutral-400 text-balance mb-12">
+								{project.description}
+							</p>
+							<ul>
+								{project.progress.map((progress) => (
+									<li
+										key={progress.title + project.title}
+										className="flex md:flex-row flex-col justify-between md:items-center pb-8 border-b border-neutral-200 mb-8 gap-4"
+									>
+										<aside>
+											{progress.date && (
+												<time
+													className="text-neutral-400 text-sm"
+													dateTime={progress.date.toISOString()}
+												>
+													{progress.date.toLocaleDateString(undefined, {
+														month: "long",
+														day: "numeric",
+														year: "numeric",
+													})}
+												</time>
+											)}
+											<h4 className="text-2xl font-bold font-serif leading-loose">
+												{progress.title}
+											</h4>
+											{progress.description && (
+												<p className="text-neutral-400 max-w-[40ch] text-balance">
+													{progress.description}
+												</p>
+											)}
+										</aside>
+										{progress.image && !progress.video && (
+											// biome-ignore lint/performance/noImgElement: shh
+											<img
+												loading="lazy"
+												src={progress.image}
+												alt={progress.title}
+												className="rounded-lg object-cover size-auto max-w-sm max-h-96"
+											/>
+										)}
+										{progress.video && (
+											<video
+												src={progress.video}
+												loop
+												className="rounded-lg object-cover size-auto max-w-sm max-h-96"
+												preload="none"
+												poster={progress.image}
+												controls
+											>
+												<track kind="captions" />
+											</video>
+										)}
+									</li>
+								))}
+							</ul>
+						</TabsContent>
+					))}
+				</Tabs>
+			</section>
 			<div className="max-w-5xl px-2 mx-auto" />
 		</>
 	);
