@@ -86,7 +86,7 @@ export default async function GitHubActivity() {
 				href="https://github.com/JulianKominovic"
 				target="_blank"
 				rel="noopener noreferrer"
-				className="flex items-start gap-1"
+				className="flex items-start gap-1 flex-wrap"
 			>
 				<Image
 					src={data.profile.avatar_url}

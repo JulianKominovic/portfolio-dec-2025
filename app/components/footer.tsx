@@ -14,11 +14,7 @@ const linksClasses =
 export default async function Footer() {
 	const blogposts = await getBlogPostsSitemap();
 	return (
-		<footer className="relative overflow-hidden bg-neutral-50 border-t border-neutral-200 mt-24 pt-12 pb-24">
-			{/* Background blobs */}
-			<div className="absolute top-0 left-0 size-2/3 bg-blue-400/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-			<div className="absolute bottom-0 right-0 size-2/5 bg-purple-400/10 rounded-full blur-3xl translate-x-1/3 translate-y-1/3 pointer-events-none" />
-
+		<footer className="relative z-10 overflow-hidden bg-neutral-50 border-t border-neutral-200 mt-24 pt-12 pb-24">
 			<nav className="max-w-5xl mx-auto px-4 relative z-10">
 				<div className="flex flex-wrap lg:justify-center gap-x-24 gap-y-8">
 					{/* Navigation */}

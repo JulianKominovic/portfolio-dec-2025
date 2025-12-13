@@ -14,6 +14,7 @@ import {
 	CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import ZoomeableChildren from "@/components/zoomeable-image";
 import { cn } from "@/lib/utils";
 import buenosairesmini from "./assets/buenos-aires-mini.png";
 import backendfrontend1 from "./assets/frontend-memes/backend-frontend-1.jpg";
@@ -35,15 +36,19 @@ export default function Page() {
 			<main
 				id="hero"
 				className={clsx(
-					"mx-auto grid max-w-5xl px-4 pt-20 gap-2",
+					"mx-auto flex flex-col bento-grid:grid max-w-5xl px-4 justify-center pt-20 gap-8 bento-grid:gap-2",
 					"lg:grid-cols-4 lg:grid-rows-[280px_235px_235px]",
-					"md:grid-cols-3 md:grid-rows-[280px_280px_235px_235px]",
+					"md:grid-cols-[repeat(3,248px)] md:grid-rows-[280px_280px_235px_235px]",
+					"grid-cols-[repeat(2,248px)] grid-rows-[280px_280px_235px_235px]",
+					// "xs:grid-cols-1 xs:grid-rows-[repeat(4,auto)]",
+					// "grid-cols-1 grid-rows-[repeat(4,auto)]",
 				)}
 			>
 				<section className="self-center col-span-2">
 					<Image
 						alt="Profile"
 						className="rounded-[50%] mb-4"
+						loading="eager"
 						height={64}
 						src={profile}
 						width={64}
@@ -63,19 +68,20 @@ export default function Page() {
 						what is <span className="text-neutral-900">frontend</span>? well...
 					</p>
 					<Carousel
-						className="w-full h-full min-h-0"
+						className="w-full h-full min-h-0 max-w-64 max-h-64"
 						opts={{
 							loop: true,
 							align: "center",
 							active: true,
 						}}
 					>
-						<CarouselContent className="w-full h-full">
+						<CarouselContent className="w-full h-full max-w-64 max-h-64">
 							<CarouselItem>
 								<Image
 									className="w-full h-full squircle "
 									src={cssaward}
 									alt="CSS Award"
+									loading="eager"
 								/>
 							</CarouselItem>
 							<CarouselItem>
@@ -115,7 +121,8 @@ export default function Page() {
 					<Image
 						src={buenosairesmini}
 						alt="Buenos Aires, Argentina"
-						className="bg-neutral-100 squircle"
+						className="bg-neutral-100 squircle max-w-72 max-h-72 w-full h-full"
+						loading="eager"
 					/>
 					<p className="px-2 text-sm text-neutral-400">
 						living in{" "}
@@ -132,8 +139,10 @@ export default function Page() {
 									i
 								}wkxp`}
 								className={clsx(
-									"flex justify-between items-center mb-4 pb-4 border-b border-neutral-200",
-									i === WORKING_EXPERIENCE.length - 1 && "border-b-0",
+									"flex justify-between sm:items-center border-neutral-200 flex-col sm:flex-row gap-2",
+									i === WORKING_EXPERIENCE.length - 1
+										? "border-b-0 mb-0 pb-0"
+										: "mb-4 pb-4 border-b",
 								)}
 							>
 								<aside className="flex gap-2">
@@ -174,14 +183,14 @@ export default function Page() {
 					<Image
 						src={messiworldcup}
 						alt="Messi World Cup"
-						className="object-cover w-full h-full bg-neutral-100 squircle"
+						className="object-cover w-full h-full bg-neutral-100 squircle max-h-64"
 					/>
 				</section>
 				<a
 					href="https://x.com/juliankominovic"
 					target="_blank"
 					rel="noopener noreferrer"
-					className="flex flex-col justify-between h-full p-4 bg-neutral-900 squircle"
+					className="flex flex-col justify-between h-full gap-8 p-4 bg-neutral-900 squircle"
 				>
 					<XIcon className="size-6 text-white m-2" />
 					<footer>
@@ -200,7 +209,7 @@ export default function Page() {
 					href="https://www.linkedin.com/in/jkominovic"
 					target="_blank"
 					rel="noopener noreferrer"
-					className="flex flex-col justify-between h-full p-4 bg-[#007EBB] squircle"
+					className="flex flex-col justify-between h-full gap-8 p-4 bg-[#007EBB] squircle"
 				>
 					<LinkedinIcon className="text-white size-6 m-2" />
 					<footer>
@@ -230,7 +239,7 @@ export default function Page() {
 					<TabsList className="bg-transparent h-auto flex-wrap-balance justify-center mx-auto">
 						{PROJECTS.map((project) => (
 							<TabsTrigger
-								className="size-32 squircle shadow-none! flex-auto group p-1"
+								className="size-32 squircle shadow-none! flex-auto group p-1 bg-transparent!"
 								key={`${project.title}title`}
 								value={project.title}
 							>
@@ -240,6 +249,7 @@ export default function Page() {
 									width={96}
 									height={96}
 									unoptimized
+									loading="lazy"
 									className="size-24 object-cover squircle saturate-0 opacity-20 group-data-[state=active]:opacity-100 group-data-[state=active]:saturate-100 group-hover:saturate-100 transition-all duration-300"
 								/>
 							</TabsTrigger>
@@ -265,7 +275,7 @@ export default function Page() {
 							>
 								{project.status}
 							</p>
-							<header className="bg-white flex justify-between items-center flex-wrap gap-4 group">
+							<header className="flex justify-between items-center flex-wrap gap-4 group">
 								<h3 className="text-4xl font-bold font-serif leading-loose">
 									<a
 										className="flex items-center gap-2"
@@ -289,14 +299,14 @@ export default function Page() {
 									Go back to top <ArrowUp className="size-4" />
 								</a> */}
 							</header>
-							<p className="text-lg text-neutral-400 text-balance mb-12">
+							<p className="text-lg text-neutral-400 text-balance mb-20">
 								{project.description}
 							</p>
 							<ul>
 								{project.progress.map((progress) => (
 									<li
 										key={progress.title + project.title}
-										className="flex md:flex-row flex-col justify-between md:items-center pb-8 border-b border-neutral-200 mb-8 gap-4"
+										className="flex md:flex-row flex-col justify-between md:items-center pb-16 border-b border-neutral-200 mb-16 gap-4"
 									>
 										<aside>
 											{progress.date && (
@@ -321,12 +331,25 @@ export default function Page() {
 											)}
 										</aside>
 										{progress.image && !progress.video && (
-											// biome-ignore lint/performance/noImgElement: shh
-											<img
-												loading="lazy"
-												src={progress.image}
-												alt={progress.title}
-												className="rounded-lg object-cover size-auto max-w-sm max-h-96"
+											<ZoomeableChildren
+												mini={
+													// biome-ignore lint/performance/noImgElement: shh
+													<img
+														loading="lazy"
+														src={progress.image}
+														alt={progress.title}
+														className="rounded-lg object-cover size-auto max-w-sm max-h-96 cursor-zoom-in"
+													/>
+												}
+												zoomed={
+													// biome-ignore lint/performance/noImgElement: shh
+													<img
+														loading="lazy"
+														src={progress.image}
+														alt={progress.title}
+														className="rounded-lg object-cover size-full"
+													/>
+												}
 											/>
 										)}
 										{progress.video && (
