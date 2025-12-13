@@ -20,10 +20,7 @@ export default async function Footer() {
 			<div className="absolute bottom-0 right-0 size-2/5 bg-purple-400/10 rounded-full blur-3xl translate-x-1/3 translate-y-1/3 pointer-events-none" />
 
 			<nav className="max-w-5xl mx-auto px-4 relative z-10">
-				<div
-					className="flex flex-wrap md:justify-center gap-x-24 gap-y-8"
-					// className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-				>
+				<div className="flex flex-wrap lg:justify-center gap-x-24 gap-y-8">
 					{/* Navigation */}
 					<div>
 						<h3 className="font-semibold text-neutral-900 mb-4">Navigation</h3>
