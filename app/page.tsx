@@ -25,12 +25,15 @@ import messiworldcup from "./assets/messi-world-cup.gif";
 import profile from "./assets/profile.jpeg";
 import xprofilepic from "./assets/x-profile-pic.jpg";
 import GitHubActivity from "./components/github-activity";
+import LinkedinIcon from "./components/icons/linkedin";
+import XIcon from "./components/icons/x";
 import { PROJECTS, WORKING_EXPERIENCE } from "./data/bio";
 
 export default function Page() {
 	return (
 		<>
 			<main
+				id="hero"
 				className={clsx(
 					"mx-auto grid max-w-5xl px-4 pt-20 gap-2",
 					"lg:grid-cols-4 lg:grid-rows-[280px_235px_235px]",
@@ -180,18 +183,7 @@ export default function Page() {
 					rel="noopener noreferrer"
 					className="flex flex-col justify-between h-full p-4 bg-neutral-900 squircle"
 				>
-					<svg
-						className="m-2 text-white size-6"
-						role="img"
-						viewBox="0 0 24 24"
-						xmlns="http://www.w3.org/2000/svg"
-					>
-						<title>X</title>
-						<path
-							d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"
-							fill="currentColor"
-						/>
-					</svg>
+					<XIcon className="size-6 text-white m-2" />
 					<footer>
 						<Image
 							src={xprofilepic}
@@ -210,25 +202,7 @@ export default function Page() {
 					rel="noopener noreferrer"
 					className="flex flex-col justify-between h-full p-4 bg-[#007EBB] squircle"
 				>
-					<svg
-						aria-label="LinkedIn"
-						xmlns="http://www.w3.org/2000/svg"
-						height="40"
-						viewBox="0 0 72 72"
-						width="40"
-					>
-						<title>LinkedIn</title>
-						<g fill="none" fillRule="evenodd">
-							<path
-								d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z"
-								fill="transparent"
-							/>
-							<path
-								d="M62,62 L51.315625,62 L51.315625,43.8021149 C51.315625,38.8127542 49.4197917,36.0245323 45.4707031,36.0245323 C41.1746094,36.0245323 38.9300781,38.9261103 38.9300781,43.8021149 L38.9300781,62 L28.6333333,62 L28.6333333,27.3333333 L38.9300781,27.3333333 L38.9300781,32.0029283 C38.9300781,32.0029283 42.0260417,26.2742151 49.3825521,26.2742151 C56.7356771,26.2742151 62,30.7644705 62,40.051212 L62,62 Z M16.349349,22.7940133 C12.8420573,22.7940133 10,19.9296567 10,16.3970067 C10,12.8643566 12.8420573,10 16.349349,10 C19.8566406,10 22.6970052,12.8643566 22.6970052,16.3970067 C22.6970052,19.9296567 19.8566406,22.7940133 16.349349,22.7940133 Z M11.0325521,62 L21.769401,62 L21.769401,27.3333333 L11.0325521,27.3333333 L11.0325521,62 Z"
-								fill="#FFF"
-							/>
-						</g>
-					</svg>
+					<LinkedinIcon className="text-white size-6 m-2" />
 					<footer>
 						<Image
 							src={profile}
@@ -245,7 +219,7 @@ export default function Page() {
 					<GitHubActivity />
 				</section>
 			</main>
-			<section className="py-48 mx-auto max-w-5xl px-4">
+			<section id="projects" className="py-48 mx-auto max-w-5xl px-4">
 				<h2 className="text-6xl font-bold font-serif text-center leading-loose">
 					Projects
 				</h2>
@@ -291,7 +265,7 @@ export default function Page() {
 							>
 								{project.status}
 							</p>
-							<header className="sticky top-0 bg-white flex justify-between items-center flex-wrap gap-4 group">
+							<header className="bg-white flex justify-between items-center flex-wrap gap-4 group">
 								<h3 className="text-4xl font-bold font-serif leading-loose">
 									<a
 										className="flex items-center gap-2"

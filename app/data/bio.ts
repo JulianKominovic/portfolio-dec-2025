@@ -1,4 +1,18 @@
 import logoKoin from "../../public/logos/logo-koin.webp";
+export const SOCIAL_LINKS = {
+	github: {
+		url: "https://github.com/JulianKominovic",
+		username: "JulianKominovic",
+	},
+	linkedin: {
+		url: "https://www.linkedin.com/in/jkominovic",
+		username: "Julian Ezequiel Kominovic",
+	},
+	x: {
+		url: "https://x.com/juliankominovic",
+		username: "Juli Kominovic 🧉",
+	},
+};
 export const WORKING_EXPERIENCE = [
 	{
 		company: "Koin",
