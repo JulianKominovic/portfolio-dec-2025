@@ -88,7 +88,7 @@ export const PROJECTS: {
 		description:
 			"Modern reading app designed to make reading simple, elegant, and enjoyable. Clean interface for exploring texts, highlighting key parts, and managing your reading experience without distractions. Built for curious minds. AI powered.",
 		url: "https://github.com/JulianKominovic/libritus",
-		logo: "logos/libritus-logo.webp",
+		logo: "/logos/libritus-logo.webp",
 		progress: [
 			{
 				title: "Lock horizontal scroll",
@@ -177,7 +177,7 @@ export const PROJECTS: {
 		description:
 			"Capture your thoughts as they come. Find them the way your mind would.",
 		url: "https://braindump.jkominovic.dev",
-		logo: "logos/braindump.webp",
+		logo: "/logos/braindump.webp",
 		year: 2025,
 		progress: [
 			{
@@ -325,7 +325,7 @@ export const PROJECTS: {
 		description:
 			"Give your keyboard a voice. Simulate the sounds of typing on a mechanical keyboard.",
 		url: "https://mechy-keyboard.jkominovic.dev",
-		logo: "logos/mechy-keyboard-logo.webp",
+		logo: "/logos/mechy-keyboard-logo.webp",
 		year: 2025,
 		progress: [
 			{
@@ -347,7 +347,7 @@ export const PROJECTS: {
 		description:
 			"22 handcrafted social media bento cards thanks to Double Glitch's figma design and +3150 dynamic card icons using SimpleIcons.",
 		url: "https://bentos.jkominovic.dev",
-		logo: "logos/bentisca-logo.webp",
+		logo: "/logos/bentisca-logo.webp",
 		year: 2024,
 		progress: [
 			{
@@ -369,7 +369,7 @@ export const PROJECTS: {
 		description:
 			"Share development feedback with your team directly on the website.",
 		url: "https://live-feedback.jkominovic.dev",
-		logo: "logos/live-feedback.webp",
+		logo: "/logos/live-feedback.webp",
 		year: 2024,
 		progress: [
 			{
@@ -416,7 +416,7 @@ export const PROJECTS: {
 	// 	description:
 	// 		"Another offline, cool looking, comfortable, clipboard manager.",
 	// 	url: "https://github.com/JulianKominovic/clipboard-manager",
-	// 	logo: "logos/clippis.webp",
+	// 	logo: "/logos/clippis.webp",
 	// 	year: 2024,
 	// 	progress: [
 	// 		{
@@ -433,7 +433,7 @@ export const PROJECTS: {
 		description:
 			"Launcher for Linux (gnome) similar to Raycast, Spotlight, Albert...",
 		url: "https://github.com/JulianKominovic/sittly-launcher",
-		logo: "logos/sittly.webp",
+		logo: "/logos/sittly.webp",
 		year: 2023,
 		progress: [
 			{
