@@ -11,8 +11,13 @@ export async function generateStaticParams() {
 	}));
 }
 
-export function generateMetadata({ params }) {
-	const post = getBlogPosts().find((post) => post.slug === params.slug);
+export async function generateMetadata({
+	params,
+}: {
+	params: Promise<{ slug: string }>;
+}) {
+	const awaitedParams = await params;
+	const post = getBlogPosts().find((post) => post.slug === awaitedParams.slug);
 	if (!post) {
 		return;
 	}
@@ -51,18 +56,23 @@ export function generateMetadata({ params }) {
 	};
 }
 
-export default function Blog({ params }) {
-	const post = getBlogPosts().find((post) => post.slug === params.slug);
-
-	if (!post) {
+export default async function Blog({
+	params,
+}: {
+	params: Promise<{ slug: string }>;
+}) {
+	const awaitedParams = await params;
+	const post = getBlogPosts().find((post) => post.slug === awaitedParams.slug);
+	if (!post || post?.metadata?.draft) {
 		notFound();
 	}
 
 	return (
-		<section>
+		<article className="prose mx-auto px-4 pt-20">
 			<script
 				type="application/ld+json"
 				suppressHydrationWarning
+				// biome-ignore lint/security/noDangerouslySetInnerHtml: sh
 				dangerouslySetInnerHTML={{
 					__html: JSON.stringify({
 						"@context": "https://schema.org",
@@ -77,12 +87,12 @@ export default function Blog({ params }) {
 						url: `${baseUrl}/blog/${post.slug}`,
 						author: {
 							"@type": "Person",
-							name: "My Portfolio",
+							name: "Julian Kominovic",
 						},
 					}),
 				}}
 			/>
-			<h1 className="title font-semibold text-2xl tracking-tighter">
+			<h1 className="title font-serif text-5xl font-bold! leading-tight">
 				{post.metadata.title}
 			</h1>
 			<div className="flex justify-between items-center mt-2 mb-8 text-sm">
@@ -90,9 +100,7 @@ export default function Blog({ params }) {
 					{formatDate(post.metadata.publishedAt)}
 				</p>
 			</div>
-			<article className="prose">
-				<CustomMDX source={post.content} />
-			</article>
-		</section>
+			<CustomMDX source={post.content} />
+		</article>
 	);
 }

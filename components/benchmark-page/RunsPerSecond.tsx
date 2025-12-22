@@ -35,7 +35,7 @@ export function RunsPerSecond({
 		acc.filename.length > curr.filename.length ? acc : curr,
 	);
 	return (
-		<Card hoverable={false} className="mb-12">
+		<Card hoverable={false} className="mb-12 not-prose">
 			<CardHeader>
 				<CardTitle>Operations per second</CardTitle>
 				<CardDescription>

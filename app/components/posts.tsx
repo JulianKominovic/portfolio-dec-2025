@@ -1,12 +1,12 @@
-import Link from "next/link";
 import { formatDate, getBlogPosts } from "app/blog/utils";
+import Link from "next/link";
 
 export function BlogPosts() {
-	let allBlogs = getBlogPosts();
-
+	const allBlogs = getBlogPosts();
 	return (
-		<div>
+		<ul className="list-none">
 			{allBlogs
+				.filter((post) => !post.metadata.draft)
 				.sort((a, b) => {
 					if (
 						new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)
@@ -16,21 +16,26 @@ export function BlogPosts() {
 					return 1;
 				})
 				.map((post) => (
-					<Link
-						key={post.slug}
-						className="flex flex-col space-y-1 mb-4"
-						href={`/blog/${post.slug}`}
-					>
-						<div className="w-full flex flex-col md:flex-row space-x-0 md:space-x-2">
-							<p className="text-neutral-600 w-[100px] tabular-nums">
-								{formatDate(post.metadata.publishedAt, false)}
-							</p>
-							<p className="text-neutral-900 tracking-tight">
+					<li key={post.slug} className="mb-16">
+						<Link
+							key={post.slug}
+							className="flex flex-col space-y-1 mb-4"
+							href={`/blog/${post.slug}`}
+						>
+							<h3 className="text-neutral-900 tracking-tight text-xl font-bold">
 								{post.metadata.title}
-							</p>
-						</div>
-					</Link>
+							</h3>
+							<p className="text-neutral-600">{post.metadata.summary}</p>
+
+							<time
+								dateTime={post.metadata.publishedAt}
+								className="text-neutral-600 tabular-nums"
+							>
+								{formatDate(post.metadata.publishedAt, false)}
+							</time>
+						</Link>
+					</li>
 				))}
-		</div>
+		</ul>
 	);
 }

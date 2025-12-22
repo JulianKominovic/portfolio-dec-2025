@@ -37,15 +37,15 @@ export function AvgRunTime({
 		acc.filename.length > curr.filename.length ? acc : curr,
 	);
 	return (
-		<Card hoverable={false} className="mb-12">
-			<CardHeader>
-				<CardTitle>Average run time</CardTitle>
-				<CardDescription>
+		<Card hoverable={false} className="mb-12 no-prose">
+			<CardHeader className="not-prose">
+				<CardTitle className="not-prose">Average run time</CardTitle>
+				<CardDescription className="not-prose">
 					This chart shows how long each test case takes to run 1 iteration on
 					average.
 				</CardDescription>
 			</CardHeader>
-			<CardContent>
+			<CardContent className="not-prose">
 				<ChartContainer
 					style={{
 						height: chartData.length * (BARSIZE + BARGAP),
@@ -100,7 +100,7 @@ export function AvgRunTime({
 					</BarChart>
 				</ChartContainer>
 			</CardContent>
-			<CardFooter className="flex-col items-start gap-2 text-sm">
+			<CardFooter className="flex-col items-start gap-2 text-sm not-prose">
 				<p>
 					<b>{base.filename}</b> is{" "}
 					<span className={"text-card-foreground"}>the base (100%)</span>

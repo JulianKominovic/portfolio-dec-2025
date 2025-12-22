@@ -1,0 +1,192 @@
+---
+title: 'The Importance of bitwise operators'
+publishedAt: '2025-12-14'
+summary: 'In this article we will explore some unusual ways to use bitwise operators.'
+draft: true
+---
+import BenchmarkingPlayground from "../../../components/BenchmarkingPlayground";
+
+
+In this article we will explore some scenarios where bitwise operators can be used to our advantage over traditional logical operators or other operations.
+
+## Even or odd (only for integers)
+
+If I ask you to write a function that checks if a number is even or odd, you might write something like this:
+```ts
+function isEven(n: number): boolean {
+	return n % 2 === 0;
+}
+```
+
+This is a valid solution but what if I tell you there is another lesser known way to do this?
+
+Here is the solution:
+```ts
+function isEven(n: number): boolean {
+	return n & 1 === 0;
+}
+function isOdd(n: number): boolean {
+	return n & 1
+}
+```
+
+Let's break down what is happening here but first let's approach the problem from a different angle by treating the number as a binary number instead of a decimal number.
+
+Let's take a set of numbers and represent them in binary:
+```
+0: 0000
+1: 0001
+2: 0010
+3: 0011
+4: 0100
+5: 0101
+6: 0110
+7: 0111
+8: 1000
+9: 1001
+10: 1010
+11: 1011
+12: 1100
+13: 1101
+14: 1110
+15: 1111
+```
+after a while you might notice a pattern: the last bit of the number is 0 if the number is even and 1 if the number is odd. This is a rule that applies to all numbers.
+
+So the question is: how can we use this pattern to our advantage?
+
+We can use the bitwise AND operator to check if a number is even or odd.
+```ts
+function isEven(n: number): boolean {
+	return n & 1 === 0;
+}
+function isOdd(n: number): boolean {
+	return n & 1;
+}
+```
+
+### Testing the solution
+
+<BenchmarkingPlayground
+	id="is-even-or-odd"
+    readonly
+	files={[
+        {
+            name: "test-data",
+            value: `// Put your test data here.
+// Variables declared here will be available in the test code.
+// You can use this 'arr' variable in your test code.
+this.arr = Array.from({ length: 100_000 }, () => Math.floor(Math.random() * 100_000));
+    `,
+            testData: true,
+        },
+		{
+			name: "using-modulo",
+			value: `function isEven(n) {
+    return n & 1 === 0;
+}
+function isOdd(n) {
+    return n & 1;
+}
+for (const n of arr) {
+    isEven(n);
+    isOdd(n);
+}
+			`,
+		},
+        {
+            name: "using-bitwise-and",
+            value: `function isEven(n) {
+    return n & 1 === 0;
+}
+function isOdd(n) {
+    return n & 1;
+}
+for (const n of arr) {
+    isEven(n);
+    isOdd(n);
+}
+            `,
+        }
+	]}
+/>
+
+---
+
+## Flags
+
+A common practice in low level programming is to use flags to represent a set of boolean values using a single integer. You have probably experienced a bit of this in your daily routine. One example is the `chmod` command in Linux.
+
+However, this is not very common in high level programming languages but it is a very powerful technique that can help with performance, memory and network usage.
+
+The concept is simple: an integer can be represented as a binary number with each bit representing a boolean value (0 or 1).
+
+### What a high level example might look like
+
+In practical terms we might have a object with the lights of our home and each light might be represented by a boolean value.
+
+```ts
+// Lights of my home
+const lights = {
+    "kitchen": false,
+    "livingRoom": false,
+    "bedroom": false,
+    "bathroom": true,
+    "porch": false,
+    "garage": true,
+    "garden": true
+}
+```
+
+now, let's suppose we want to send this information to a server or a device. Serializing this object to JSON would end up sending 103 B.
+
+I kinda OK with that
+
+{/* 
+
+
+TODO: quiero tocar este tema cuando haga el reto del millon de checkboxes me parece
+que puede ser un ejemplo
+
+
+*/}
+
+```ts
+let flag = 0;
+
+function activate(place){
+  flag = flag | (1<<place);
+  return flag;
+}
+
+function deactivate(place){
+  flag = flag & (~(1<<place));
+  return flag;
+}
+
+function isActive(place){
+  return (flag & (1<<place)) >> place;
+}
+
+```
+
+---
+
+## XOR operator
+The following examples comes from [Tsoding's video](https://youtu.be/4KdvcQKNfbQ?si=QdjSONN5JImNScLJ) on YouTube I highly recommend watching it.
+
+Keep in mind that XOR operator has a very powerful property: `a^b^b == a` which allows us to create some interesting algorithms.
+
+
+
+### Dumb encryption
+
+> Do not use this in production 🤪
+
+
+
+## Inspired by
+
+- Tsoding video on YouTube (https://youtu.be/4KdvcQKNfbQ?si=QdjSONN5JImNScLJ)
+- Even or odd Codewars kata (https://www.codewars.com/kata/5949481f86420f59480000e7)
+- [Bitwise Flags are Beautiful, and Here’s Why](https://www.hendrik-erz.de/post/bitwise-flags-are-beautiful-and-heres-why)

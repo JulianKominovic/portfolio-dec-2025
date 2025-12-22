@@ -1,4 +1,7 @@
-export const baseUrl = "https://jkominovic.dev";
+export const baseUrl =
+	process.env.NODE_ENV === "development"
+		? "http://localhost:3000"
+		: "https://jkominovic.dev";
 
 export const subroutes = {
 	home: {

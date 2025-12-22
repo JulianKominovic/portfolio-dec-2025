@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@plugin "@tailwindcss/typography";
 
 ::selection {
 	background-color: #47a3f3;
@@ -132,43 +133,6 @@
 
 .prose code span {
 	@apply font-medium;
-}
-
-.prose img {
-	/* Don't apply styles to next/image */
-	@apply m-0;
-}
-
-.prose p {
-	@apply my-4 text-neutral-800;
-}
-
-.prose h1 {
-	@apply text-4xl font-medium tracking-tight mt-6 mb-2;
-}
-
-.prose h2 {
-	@apply text-xl font-medium tracking-tight mt-6 mb-2;
-}
-
-.prose h3 {
-	@apply text-xl font-medium tracking-tight mt-6 mb-2;
-}
-
-.prose h4 {
-	@apply text-lg font-medium tracking-tight mt-6 mb-2;
-}
-
-.prose strong {
-	@apply font-medium;
-}
-
-.prose ul {
-	@apply list-disc pl-6;
-}
-
-.prose ol {
-	@apply list-decimal pl-6;
 }
 
 .prose > :first-child {

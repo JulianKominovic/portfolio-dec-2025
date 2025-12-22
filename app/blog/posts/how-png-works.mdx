@@ -1,0 +1,31 @@
+---
+title: 'How PNG works'
+publishedAt: '2025-12-14'
+summary: 'You probably use PNG images every day but do you know how they work?'
+draft: true
+---
+
+import BenchmarkingPlayground from "../../../components/BenchmarkingPlayground";
+import LivePlayground from "../../../components/LivePlayground";
+
+You probably use PNG images every day but do you know how they work?
+
+Let's break down the format of a PNG image, how it is structured and how it is encoded. Then we will try to generate a PNG image from scratch.
+
+
+## File signature
+
+Every file format starts with something called [magic bytes or file signature](https://en.wikipedia.org/wiki/List_of_file_signatures), that is a sequence of bytes at the start of the file that identifies the file format.
+
+This is a very clever and efficient way to identify the file format without having to read the entire file.
+
+In the case of PNG, the file signature is `137 80 78 71 13 10 26 10` defined [here](https://datatracker.ietf.org/doc/html/rfc2083#section-3).
+
+So, as soon as you create an empty file with those bytes, your file will be recognized as a PNG image.
+
+Try it out:
+
+<LivePlayground files={{ "index.js": `
+const file = new File([], "image.txt", { type: "text/plain" });
+console.log(file);
+` }} />

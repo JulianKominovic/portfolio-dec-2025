@@ -63,7 +63,6 @@ function BenchmarkingPlayground({
 		}[]
 	>([]);
 	const activeFile = files.at(activeIndex);
-
 	useEffect(() => {
 		if (typeof window !== "undefined" && localStorage && !readonly) {
 			if (localStorage.getItem(localStorageKey)) {
@@ -173,12 +172,14 @@ function BenchmarkingPlayground({
 		setSavePending(false);
 		localStorage.setItem(
 			localStorageKey,
-			JSON.stringify(files.map(({ name, value }) => ({ name, value }))),
+			JSON.stringify(
+				files.map(({ name, value, testData }) => ({ name, value, testData })),
+			),
 		);
 	}
 	return (
 		<>
-			<Card hoverable={false} className="mb-12 overflow-visible">
+			<Card hoverable={false} className="mb-12 overflow-visible not-prose">
 				<div className="flex items-start">
 					<Button
 						className="h-8 [&_svg]:size-[1em]"
