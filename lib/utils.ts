@@ -21,7 +21,7 @@ export function detectMacOSOrIOS() {
 export function createMetadata({
 	title = "Julian Kominovic - Frontend developer",
 	description = "Frontend developer based in Buenos Aires, Argentina with almost 3 years of experience in fintech products. I enjoy creating development tools to make developers' life easier.",
-	ogImage = "https://jkominovic.dev/images/assets/og.png",
+	ogImage = "https://jkominovic.dev/og/og.png",
 	keywords = [
 		"React",
 		"Next.js",

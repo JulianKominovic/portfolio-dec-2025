@@ -43,7 +43,7 @@ self.onmessage = (event) => {
   const testDataFiles = _files.filter((file) => file.testData);
   const files = _files.filter((file) => !file.testData);
 
-  let results = [];
+  const results = [];
 
   for (const testDataFile of testDataFiles) {
     // To initialize test data
