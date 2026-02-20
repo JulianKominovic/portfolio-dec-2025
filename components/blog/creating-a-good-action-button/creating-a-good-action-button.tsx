@@ -230,7 +230,7 @@ export const EcommerceCheckoutExample = () => {
 								scale: 0.99,
 								y: 2,
 								boxShadow:
-									"rgba(0, 0, 0, 0.2) 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 0px 13px -3px, rgb(0, 0, 0) -1px -2px 0px inset, rgb(171, 171, 171) 0px -1px 5px inset",
+									"rgba(0, 0, 0, 0.2) 0px 0px 2px, rgba(0, 0, 0, 0.3) 0px 4px 10px -3px, rgb(0, 0, 0) -1px -2px 0px inset, rgb(171, 171, 171) 0px -1px 6px inset",
 							}
 				}
 				className={cn(
