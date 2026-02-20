@@ -22,11 +22,11 @@ export const routes = [
 		lastModified: new Date().toISOString().split("T")[0],
 		title: "Home",
 	},
-	// {
-	// 	url: `${baseUrl}/blog`,
-	// 	lastModified: new Date().toISOString().split("T")[0],
-	// 	title: "Blog",
-	// },
+	{
+		url: `${baseUrl}/blog`,
+		lastModified: new Date().toISOString().split("T")[0],
+		title: "Blog",
+	},
 	{
 		url: `${baseUrl}/labs`,
 		lastModified: new Date().toISOString().split("T")[0],

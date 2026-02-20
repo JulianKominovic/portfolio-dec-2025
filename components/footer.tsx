@@ -2,12 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { Fragment } from "react";
 import { cn } from "@/lib/utils";
-import { baseUrl, routes, subroutes } from "../config";
-import { PROJECTS, SOCIAL_LINKS } from "../data/bio";
-import { getBlogPostsSitemap } from "../sitemap";
-import GithubIcon from "./icons/github";
-import LinkedinIcon from "./icons/linkedin";
-import XIcon from "./icons/x";
+import { baseUrl, routes, subroutes } from "../app/config";
+import { PROJECTS, SOCIAL_LINKS } from "../app/data/bio";
+import { getBlogPostsSitemap } from "../app/sitemap";
+import GithubIcon from "./ui/icons/github";
+import LinkedinIcon from "./ui/icons/linkedin";
+import XIcon from "./ui/icons/x";
 
 const linksClasses =
 	"block mb-2 text-neutral-600 hover:text-black transition-colors";
@@ -15,7 +15,7 @@ const linksClasses =
 export default async function Footer() {
 	const blogposts = await getBlogPostsSitemap();
 	return (
-		<footer className="relative z-10 overflow-hidden bg-neutral-50 border-t border-neutral-200 mt-24 pt-12 pb-24">
+		<footer className="relative z-10 overflow-hidden bg-stone-50 border-t border-neutral-200 mt-24 pt-12 pb-24">
 			<nav className="max-w-5xl mx-auto px-4 relative z-10">
 				<div className="flex flex-wrap lg:justify-center gap-x-24 gap-y-8">
 					{/* Navigation */}

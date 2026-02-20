@@ -1,0 +1,28 @@
+.react-tweet-theme {
+	--tweet-font-family: var(--font-sans);
+	--tweet-container-margin: 1.5rem 0;
+	--tweet-header-font-size: var(--text-sm);
+	--tweet-header-line-height: var(--text-sm--line-height);
+	--tweet-body-font-size: var(--text-base);
+	--tweet-body-font-weight: 400;
+	--tweet-body-line-height: 1;
+	--tweet-body-margin: 0;
+	--tweet-quoted-container-margin: 0.75rem 0;
+	--tweet-quoted-body-font-size: var(--text-sm);
+	--tweet-quoted-body-font-weight: 400;
+	--tweet-quoted-body-line-height: var(--text-sm--line-height);
+	--tweet-quoted-body-margin: 0.25rem 0 0.75rem 0;
+	--tweet-info-font-size: var(--text-sm);
+	--tweet-info-line-height: var(--text-sm--line-height);
+	--tweet-actions-font-size: var(--text-xs);
+	--tweet-actions-line-height: var(--text-xs--line-height);
+	--tweet-actions-font-weight: 700;
+	--tweet-actions-icon-size: 1.25em;
+	--tweet-actions-icon-wrapper-size: calc(
+		var(--tweet-actions-icon-size) +
+		0.75em
+	);
+	--tweet-replies-font-size: var(--text-xs);
+	--tweet-replies-line-height: var(--text-xs--line-height);
+	--tweet-replies-font-weight: 700;
+}

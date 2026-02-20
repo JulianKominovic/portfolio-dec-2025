@@ -1,7 +1,10 @@
 import { formatDate, getBlogPosts } from "app/blog/utils";
-import { CustomMDX } from "app/components/mdx";
 import { baseUrl } from "app/config";
+import { ArrowLeftIcon } from "lucide-react";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import { CustomMDX } from "@/components/mdx";
+import OnlyClientSide from "@/components/OnlyClientSide";
 
 export async function generateStaticParams() {
 	const posts = getBlogPosts();
@@ -68,7 +71,13 @@ export default async function Blog({
 	}
 
 	return (
-		<article className="prose mx-auto px-4 pt-20">
+		<article className="prose prose-h2:mt-16 prose-h3:mt-12 prose-h4:mt-10 prose-h5:mt-8 prose-h6:mt-6 prose-p:mb-8 prose-li:mb-6 mx-auto px-4 pt-20">
+			<Link
+				href="/blog"
+				className="mb-8! w-fit px-4 h-12 rounded-full shadow-border bg-muted flex items-center gap-2 text-muted-foreground no-underline! active:scale-97 transition-[transform,colors] hover:text-foreground hover:bg-neutral-50 duration-150"
+			>
+				<ArrowLeftIcon size={18} /> Go back
+			</Link>
 			<script
 				type="application/ld+json"
 				suppressHydrationWarning
@@ -92,13 +101,15 @@ export default async function Blog({
 					}),
 				}}
 			/>
-			<h1 className="title font-serif text-5xl font-bold! leading-tight">
+			<h1 className="title font-serif text-5xl font-bold leading-tight mb-0">
 				{post.metadata.title}
 			</h1>
-			<div className="flex justify-between items-center mt-2 mb-8 text-sm">
-				<p className="text-sm text-neutral-600">
-					{formatDate(post.metadata.publishedAt)}
-				</p>
+			<div className="flex justify-between items-center mb-8 text-sm">
+				<OnlyClientSide>
+					<p className="text-sm text-neutral-600">
+						{formatDate(post.metadata.publishedAt)}
+					</p>
+				</OnlyClientSide>
 			</div>
 			<CustomMDX source={post.content} />
 		</article>

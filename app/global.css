@@ -3,10 +3,9 @@
 @plugin "@tailwindcss/typography";
 
 ::selection {
-	background-color: #47a3f3;
+	background-color: #555555;
 	color: #fefefe;
 }
-
 :root {
 	--sh-class: #2d5e9d;
 	--sh-identifier: #354150;
@@ -18,7 +17,7 @@
 	--sh-property: #e25a1c;
 	--sh-entity: #e25a1c;
 	--radius: 0.625rem;
-	--background: oklch(1 0 0);
+	--background: oklch(0.96 0 0);
 	--foreground: oklch(0.145 0 0);
 	--card: oklch(1 0 0);
 	--card-foreground: oklch(0.145 0 0);
@@ -51,9 +50,13 @@
 	--sidebar-ring: oklch(0.708 0 0);
 	/* --font-serif: var(--font-young-serif);
 	--font-sans: var(--font-geist-sans); */
-	--font-serif: var(--font-alata);
-	--font-sans: var(--font-alata);
+	/* --font-serif: var(--font-alata);
+	--font-sans: var(--font-alata); */
+	--font-serif: var(--font-inter);
+	--font-sans: var(--font-inter);
 	--font-mono: var(--font-geist-mono);
+
+	letter-spacing: -0.02em;
 }
 
 .squircle {
@@ -118,7 +121,7 @@
 }
 
 .prose pre {
-	@apply bg-neutral-50 rounded-lg overflow-x-auto border border-neutral-200 py-2 px-3 text-sm;
+	@apply bg-neutral-50 rounded-lg overflow-x-auto border border-neutral-200 py-2 px-3 text-sm whitespace-pre-wrap;
 }
 
 .prose code {
@@ -140,6 +143,7 @@
 	margin-top: 1.25em !important;
 	margin-bottom: 1.25em !important;
 }
+
 
 pre::-webkit-scrollbar {
 	display: none;
@@ -169,20 +173,10 @@ table {
 	text-wrap: balance;
 }
 
-.liquid-glass {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(20px);
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
 
-@media (prefers-color-scheme: dark) {
-  .liquid-glass {
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  }
+
+@utility no-scrollbar {
+  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
 }
 
 @theme inline {
@@ -226,4 +220,7 @@ table {
   --color-sidebar-ring: var(--sidebar-ring);
   --shadow-b-card: rgba(0, 20, 20, 0.1) 0px 20px 140px 0px, rgba(0, 20, 20, 0.1) 0px 25px 20px 0px, rgb(255, 255, 255) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.04) 0px 0px 0px 1px;
   --shadow-natural: rgba(43, 41, 46, 0.2) 0px 20px 80px, rgba(0, 20, 20, 0.04) 0px 0px 0px 1px;
+  --shadow-border: 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 1px 2px -1px rgba(0, 0, 0, 0.06), 0px 2px 4px 0px rgba(0, 0, 0, 0.04);
 }
+
+

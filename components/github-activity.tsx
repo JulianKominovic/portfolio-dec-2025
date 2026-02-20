@@ -22,7 +22,7 @@ function ContributionGraph({ data }: { data: GitHubData }) {
 
 	return (
 		<div className="flex flex-col gap-2">
-			<div className="flex gap-1 overflow-x-auto">
+			<div className="flex gap-1 overflow-x-auto no-scrollbar">
 				{weeks.map((week) => (
 					<div key={week.firstDay} className="flex flex-col gap-1">
 						{week.contributionDays.map((day, dayIndex) => {
@@ -70,7 +70,7 @@ export default async function GitHubActivity() {
 		return (
 			<>
 				<p className="px-3 text-sm text-neutral-400">GitHub Activity</p>
-				<div className="h-full p-4 overflow-auto squircle bg-neutral-100 flex items-center justify-center">
+				<div className="h-full p-4 overflow-auto no-scrollbar squircle bg-card flex items-center justify-center shadow-border">
 					<p className="text-sm text-neutral-400">
 						Unable to load GitHub activity
 					</p>

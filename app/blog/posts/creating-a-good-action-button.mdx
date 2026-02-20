@@ -1,0 +1,254 @@
+---
+title: "How Difficult Is It to Create a Good Action Button?"
+publishedAt: "2026-02-01"
+summary: "Let's break down how we can improve the feedback of action buttons with subtle animations and visual cues."
+draft: false
+---
+
+import DemoCard from "../../../components/blog/demo-card";
+import { Button } from "../../../components/ui/button";
+import CacheableTweet from "../../../components/cacheable-tweet";
+import BenchmarkingPlayground from "../../../components/BenchmarkingPlayground";
+import LivePlayground from "../../../components/LivePlayground";
+import SavingButtonBlogComponents from "../../../components/blog/creating-a-good-action-button/creating-a-good-action-button";
+import {
+  Alert,
+  AlertTitle,
+  AlertDescription,
+} from "../../../components/ui/alert";
+
+Buttons are a fundamental element of any user interface. They have thousands of use cases and are key to the user experience.
+
+In this post, we'll focus on a specific use case: **buttons that perform asynchronous operations** such as saving, updating, deleting, etc.
+
+Stick around to the end if you want to understand how to build a button like this:
+
+<DemoCard>
+  <SavingButtonBlogComponents.EcommerceCheckoutExample />
+</DemoCard>
+
+## States
+
+This type of button has four states, primarily related to the action they perform:
+
+### Default or Idle
+
+The initial state of the button.
+
+<DemoCard>
+  <Button>Default or Idle</Button>
+</DemoCard>
+
+### Loading or Pending
+
+When the asynchronous action is being executed.
+
+This is typically represented with a loading spinner, an animation, a skeleton, etc. The type of animation doesn't matter as much as making the user understand that the action is in progress.
+
+<DemoCard>
+  <SavingButtonBlogComponents.LoadingButtonStateExample />
+</DemoCard>
+
+<Alert variant="info">
+  <AlertTitle> 💡 Tip</AlertTitle>
+  <AlertDescription>
+    Speed up the animation whenever possible. This gives the user the feeling
+    that the application is working harder and faster. But don't overdo it!
+  </AlertDescription>
+</Alert>
+
+### Success
+
+When the asynchronous action completes successfully.
+
+This is typically represented with a success indicator, a checkmark, a green background, etc., telling the user that the action completed successfully.
+
+### Error
+
+When the asynchronous action fails.
+
+This is typically represented with an error indicator, a red background, an X, an exclamation mark, shake animations, etc., telling the user that the action failed.
+
+## Visual States
+
+Buttons as UI elements also have states that are **NOT** directly related to the action they perform. These are the most common:
+
+- **Disabled**: Typically represented with a grayed-out appearance, a disabled cursor, etc., telling the user the button is not available to be clicked. This state is discouraged and should be avoided when possible. I recommend reading [Usability Pitfalls of Disabled Buttons, and How To Avoid Them
+](https://www.smashingmagazine.com/2021/08/frustrating-design-patterns-disabled-buttons/).
+- **Hover**: This state is recommended only for desktop devices. When the user moves the mouse over the button. Typically represented with a slightly darker background, a slightly brighter text color, etc.
+- **Focused**: This state is exclusive to desktop devices. When the user clicks the button or uses the keyboard tab key to focus it. Typically represented with a ring, border, outline, shadow, etc.
+- **Pressed or Active**: When the user clicks or taps the button and it becomes pressed or active. Typically represented with a slight scale reduction, a slight shadow, etc.
+
+## Building Something That Feels Good
+
+### No Surprises
+
+It's very important to be clear about the action behind the button, especially when it leads to irreversible or destructive actions.
+
+Many users are naturally curious. Make sure that doesn't end up in tragic consequences.
+
+
+#### Icons
+
+Avoid at all costs icons that <u>are not universal</u> or that are ambiguous or prone to confusion. There's no need to create unnecessary friction for the user without justification. We should minimize the mental effort they need to use our products.
+
+Often for design and layout reasons we tend to use icons instead of text, because they take up less space, are expressive, in many cases explain the action better than text, save us translations, and let us leverage the user's prior knowledge of them.
+
+But many times the good old reliable text, more than any other visual element, is the right tool for communicating the action.
+
+Look at this example from X's (formerly Twitter) UI:
+
+![Is this a share button?](/blogs/creating-a-good-action-button/x-share-button.webp)
+
+This is an example of how the meaning of an icon can be confused with the text.
+
+If you quickly Google _**Share icon**_ you'll see something like this:
+
+![Google search for "Share icon"](/blogs/creating-a-good-action-button/googling-share-icon.webp)
+
+And if you search for _**Upload icon**_ you'll see something like this:
+
+![Google search for "Upload icon"](/blogs/creating-a-good-action-button/googling-upload-icon.webp)
+
+I think the example speaks for itself. The meanings of icons are not always clear, they can be ambiguous, and just like language and dialects, they evolve over time.
+
+![From @UiSavior post on X](/blogs/creating-a-good-action-button/icons-changing-new-meaning.jpeg)
+
+
+### Colors
+
+We already have a pretty clear picture of how colors play an important role in communication and user experience. So I'll just briefly recap.
+
+At a high level:
+
+<Table
+  headers={["Color", "Meaning"]}
+  rows={[
+    [<b className="text-red-600">Red</b>, "Danger. Destructive actions. Irreversible consequences."],
+    [<b className="text-yellow-600">Yellow</b>, "Warning. Caution."],
+    [<b className="text-green-600">Green</b>, "Success. Health. Indicates the operation went well."],
+    [<b className="text-blue-600">Blue</b>, "Informational. Sometimes indicates the success of an operation."],
+    [<b className="text-gray-600">Gray</b>, "Deactivated. Disabled."],
+  ]}
+/>
+
+However, it's not a good idea to rely solely on colors to communicate a button's state, since 1 in 20 people has difficulty distinguishing them.
+
+<Alert variant="info">
+  <AlertTitle> 💡 Tip</AlertTitle>
+  <AlertDescription>
+    You can simulate different visual impairments from [Chrome DevTools](https://developer.chrome.com/docs/chromium/cvd?hl=en) to study how accessible your UI is for users who experience them.
+  </AlertDescription>
+</Alert>
+
+### Preventing Accidents
+
+This point goes beyond visual communication and is about the user experience.
+
+It's highly likely that at some point during the experience a user will make a big mistake and perform an unintended action that results in data loss, file deletion, financial loss, etc.
+
+That's why, unlike with [Icons](#icons), it's important to introduce friction here, because we need to ensure the user has genuine intent to perform the action.
+
+This is typically translated easily into the UI with a double confirmation.
+
+<DemoCard>
+  <SavingButtonBlogComponents.PopularDoubleConfirmationExample />
+</DemoCard>
+
+The best scenario is when the product's infrastructure allows the action to be reversed if the user needs it.
+
+For example, files in Google Drive on the first deletion attempt are moved to the trash. They stay there for 30 days before being permanently deleted. If the user needs to, they can restore the file from the trash within those 30 days, and if they want to delete it immediately, they can do so from the trash.
+
+In many cases this is too costly and not feasible for security, legal, or other reasons, in addition to requiring extra development and maintenance effort. That's why the responsibility for preventing these accidents almost always falls on the frontend developer.
+
+
+<Alert variant="default">
+  <AlertTitle> In summary</AlertTitle>
+  <AlertDescription>
+   Let's do everything we can to prevent accidents. And when they happen (because they will), let's allow users to reverse the action.
+  </AlertDescription>
+</Alert>
+
+### Expressiveness
+
+Small animations, UI changes, and reactions to certain events can be very effective methods for communicating the state of a button.
+
+We always want the UI to feel alive and natural. Giants like Apple with their [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines) and Google with their [Material Design](https://m3.material.io/) invest enormous effort in this.
+
+Here's a simple but incomplete example where you'll immediately notice the difference with just a bit of creativity, CSS, and a listener to play a sound and vibration.
+
+<DemoCard>
+  <SavingButtonBlogComponents.ExpressiveExample />
+</DemoCard>
+
+### Avoiding Flickering
+
+This phenomenon occurs when the asynchronous action completes too fast, causing the UI to briefly show the "Loading" or "Processing" state for only a few milliseconds before suddenly showing the "Success" or "Error" state.
+
+This is discussed in this [post on X by @sorenblank](https://x.com/sorenblank/status/2004236170587525309).
+
+There are different solutions. Below I show one of the simplest and most effective: adding a minimum delay to state transitions, so the loading state is visible long enough for the user to read it. It doesn't need to be very long; one second is enough if the visual complexity of the loading state is low.
+
+<DemoCard>
+  <SavingButtonBlogComponents.FlickeringExample />
+</DemoCard>
+
+<Alert variant="warning">
+  <AlertTitle> ⚠️ Disclaimer</AlertTitle>
+  <AlertDescription>
+    This is a very rudimentary solution. We're creating artificial latency and slowing the user down to prevent this annoying effect. See [@sorenblank post on X](https://x.com/sorenblank/status/2004236170587525309?s=20) for a more correct solution.
+  </AlertDescription>
+</Alert>
+
+### Rejecting Actions with Style
+
+When a user tries to interact with a disabled button or clicks while an action is in progress, feedback is crucial. A simple shake effect can instantly communicate that the action was rejected without needing any additional text.
+
+This type of animation is especially effective because:
+- **It's intuitive**: It mimics the natural "no" movement in many cultures, similar to shaking your head.
+- **It's immediate**: The user gets instant feedback without having to read error messages.
+- **It maintains context**: Unlike a modal or tooltip, the user stays in the interaction flow.
+
+It's important that the animation is subtle and fast (200–400ms), so it doesn't become annoying if the user clicks multiple times.
+
+<DemoCard>
+  <SavingButtonBlogComponents.RejectingActionsExample />
+</DemoCard>
+
+<Alert variant="info">
+  <AlertTitle> 💡 Tip</AlertTitle>
+  <AlertDescription>
+    With a 4px movement to the left and 4px to the right and only 2 iterations, you can achieve this very effective shake animation.
+  </AlertDescription>
+</Alert>
+
+
+## Applying the Principles
+
+Let's apply all the previously mentioned principles to the following scenario:
+- We're on an ecommerce checkout page.
+- We've already filled in the shipping and payment details. We're about to buy the last iPhone 16 Pro Max.
+- We scroll to the bottom of the page and see the "Buy" button.
+
+This time we won't limit ourselves on technologies. We'll use Motion, React, and Tailwind CSS.
+
+<DemoCard>
+  <SavingButtonBlogComponents.EcommerceCheckoutExample />
+</DemoCard>
+
+
+
+
+
+
+## References
+
+- [@sorenblank post on X](https://x.com/sorenblank/status/2004236170587525309?s=20)
+- [@emilkowalski post on X](https://x.com/emilkowalski/status/2003079978452431002)
+- [@dev_ya post on X](https://x.com/dev_ya/status/1991193618787254462)
+- [@UiSavior post on X](https://x.com/UiSavior/status/2019139537176510874/photo/1)
+- [Usability Pitfalls of Disabled Buttons, and How To Avoid Them
+](https://www.smashingmagazine.com/2021/08/frustrating-design-patterns-disabled-buttons/)
+- [Generating sounds with AI by @raphaelsalaja](https://www.userinterface.wiki/generating-sounds-with-ai)
+- [Lucide Animated](https://lucide-animated.com/)
+- [Magic UI Confetti](https://magicui.design/docs/components/confetti)

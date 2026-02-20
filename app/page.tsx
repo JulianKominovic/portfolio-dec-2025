@@ -1,33 +1,21 @@
 import clsx from "clsx";
-import {
-	ArrowDownToLine,
-	ArrowUp,
-	ArrowUpRight,
-	ExternalLinkIcon,
-} from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
-import {
-	Carousel,
-	CarouselContent,
-	CarouselItem,
-	CarouselNext,
-	CarouselPrevious,
-} from "@/components/ui/carousel";
+import ArgentinaFlag from "@/components/ui/icons/argentina-flag";
+import GithubIcon from "@/components/ui/icons/github";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ZoomeableChildren from "@/components/zoomeable-image";
 import { cn } from "@/lib/utils";
+import LinkedinIcon from "../components/ui/icons/linkedin";
+import XIcon from "../components/ui/icons/x";
 import buenosairesmini from "./assets/buenos-aires-mini.png";
 import backendfrontend1 from "./assets/frontend-memes/backend-frontend-1.jpg";
 import backendfrontend2 from "./assets/frontend-memes/backend-frontend-2.jpeg";
 import cssaward from "./assets/frontend-memes/css-award.jpg";
 import responsivedesignnightmare from "./assets/frontend-memes/responsive-design-nightmare.png";
 import typesofheadache from "./assets/frontend-memes/types-of-headache.png";
-import messiworldcup from "./assets/messi-world-cup.gif";
 import profile from "./assets/profile.jpeg";
-import xprofilepic from "./assets/x-profile-pic.jpg";
-import GitHubActivity from "./components/github-activity";
-import LinkedinIcon from "./components/icons/linkedin";
-import XIcon from "./components/icons/x";
 import { PROJECTS, WORKING_EXPERIENCE } from "./data/bio";
 
 export default function Page() {
@@ -36,198 +24,157 @@ export default function Page() {
 			<main
 				id="hero"
 				className={clsx(
-					"mx-auto flex flex-col bento-grid:grid max-w-5xl px-4 justify-center pt-20 gap-8 bento-grid:gap-2",
-					"lg:grid-cols-4 lg:grid-rows-[280px_235px_235px]",
-					"md:grid-cols-[repeat(3,248px)] md:grid-rows-[280px_280px_235px_235px]",
-					"grid-cols-[repeat(2,248px)] grid-rows-[280px_280px_235px_235px]",
-					// "xs:grid-cols-1 xs:grid-rows-[repeat(4,auto)]",
-					// "grid-cols-1 grid-rows-[repeat(4,auto)]",
+					"mx-auto relative max-w-2xl px-4 items-center pt-20 text-2xl",
 				)}
 			>
-				<section className="self-center col-span-2">
-					<Image
-						alt="Profile"
-						className="rounded-[50%] mb-4"
-						loading="eager"
-						height={64}
-						src={profile}
-						width={64}
-					/>
-					<h1 className="font-serif text-xl">
-						<span className="text-neutral-400">Hey {"I'm "}</span>{" "}
-						<span>Julian Kominovic</span>
-					</h1>
-					<h2 className="font-serif text-4xl font-bold">Frontend Developer</h2>
-					<p className="text-neutral-400 max-w-[40ch]">
-						more than 4 years of experience in fintech products. I enjoy
-						creating development tools to make developers' life easier.
-					</p>
-				</section>
-				<section className="flex flex-col w-full h-full gap-1">
-					<p className="px-3 text-sm text-neutral-400">
-						what is <span className="text-neutral-900">frontend</span>? well...
-					</p>
-					<Carousel
-						className="w-full h-full min-h-0 max-w-64 max-h-64"
-						opts={{
-							loop: true,
-							align: "center",
-							active: true,
-						}}
-					>
-						<CarouselContent className="w-full h-full max-w-64 max-h-64">
-							<CarouselItem>
-								<Image
-									className="w-full h-full squircle "
-									src={cssaward}
-									alt="CSS Award"
-									loading="eager"
-								/>
-							</CarouselItem>
-							<CarouselItem>
-								<Image
-									className="w-full h-full squircle "
-									src={backendfrontend1}
-									alt="Backend & Frontend Comparison"
-								/>
-							</CarouselItem>
-							<CarouselItem>
-								<Image
-									className="w-full h-full squircle "
-									src={backendfrontend2}
-									alt="Backend & Frontend Comparison 2"
-								/>
-							</CarouselItem>
-							<CarouselItem>
-								<Image
-									className="w-full h-full squircle "
-									src={responsivedesignnightmare}
-									alt="Responsive Design Nightmare"
-								/>
-							</CarouselItem>
-							<CarouselItem>
-								<Image
-									className="w-full h-full squircle "
-									src={typesofheadache}
-									alt="Types of Headache"
-								/>
-							</CarouselItem>
-						</CarouselContent>
-						<CarouselPrevious className="rounded-[50%]" />
-						<CarouselNext className="rounded-[50%] z-10" />
-					</Carousel>
-				</section>
-				<section className="relative flex flex-col justify-end gap-1 overflow-hidden">
-					<Image
-						src={buenosairesmini}
-						alt="Buenos Aires, Argentina"
-						className="bg-neutral-100 squircle max-w-72 max-h-72 w-full h-full"
-						loading="eager"
-					/>
-					<p className="px-2 text-sm text-neutral-400">
-						living in{" "}
-						<span className="text-neutral-900">Buenos Aires, Argentina</span>
-					</p>
-				</section>
-				<section className="flex flex-col w-full h-full col-span-2 gap-1">
-					<p className="px-3 text-sm text-neutral-400">working experience</p>
-					<ul className="h-full p-4 overflow-auto squircle bg-neutral-100">
-						{WORKING_EXPERIENCE.map((experience, i) => (
-							<li
-								key={`${
-									// biome-ignore lint/suspicious/noArrayIndexKey: we use the index as a key because the experience is unique
-									i
-								}wkxp`}
-								className={clsx(
-									"flex justify-between sm:items-center border-neutral-200 flex-col sm:flex-row gap-2",
-									i === WORKING_EXPERIENCE.length - 1
-										? "border-b-0 mb-0 pb-0"
-										: "mb-4 pb-4 border-b",
-								)}
-							>
-								<aside className="flex gap-2">
-									<Image
-										className="aspect-square rounded-[50%] size-6"
-										src={experience.logo}
-										alt={experience.company}
-										width={24}
-										height={24}
-									/>
-
-									<div>
-										<p className="font-serif text-sm font-normal">
-											{experience.title}
-										</p>
-										<p className="text-sm text-neutral-400">
-											at{" "}
-											<a
-												href={experience.url}
-												target="_blank"
-												rel="noopener noreferrer"
-												className="inline-flex items-center gap-1 leading-none border-b border-neutral-400 hover:text-neutral-900 hover:border-neutral-900"
-											>
-												{experience.company}{" "}
-												<ExternalLinkIcon className="size-3" />
-											</a>
-										</p>
-									</div>
-								</aside>
-								<p className="text-xs text-neutral-400">
-									{experience.startDate} - {experience.endDate}
-								</p>
-							</li>
-						))}
-					</ul>
-				</section>
-				<section className="w-full h-full col-span-2">
-					<Image
-						src={messiworldcup}
-						alt="Messi World Cup"
-						className="object-cover w-full h-full bg-neutral-100 squircle max-h-64"
-					/>
-				</section>
-				<a
-					href="https://x.com/juliankominovic"
-					target="_blank"
-					rel="noopener noreferrer"
-					className="flex flex-col justify-between h-full gap-8 p-4 bg-neutral-900 squircle"
-				>
-					<XIcon className="size-6 text-white m-2" />
-					<footer>
+				<p className="text-neutral-400 font-sans mb-1 font-semibold">
+					Hey, I'm
+				</p>
+				<h1 className="font-serif text-6xl font-bold flex items-center gap-2 mb-2 flex-wrap">
+					<span className="flex items-center gap-2">
 						<Image
-							src={xprofilepic}
-							alt="X Profile Pic"
-							width={40}
-							height={40}
-							className="rounded-[50%] object-cover"
-						/>
-						<p className="font-bold text-white">Juli Kominovic 🧉</p>
-						<p className="text-neutral-300">@julikominovic</p>
-					</footer>
-				</a>
-				<a
-					href="https://www.linkedin.com/in/jkominovic"
-					target="_blank"
-					rel="noopener noreferrer"
-					className="flex flex-col justify-between h-full gap-8 p-4 bg-[#007EBB] squircle"
-				>
-					<LinkedinIcon className="text-white size-6 m-2" />
-					<footer>
-						<Image
+							alt="Profile"
+							className="rounded-xl squircle size-12 rotate-3 ring-2 shadow-lg ring-white"
+							loading="eager"
+							height={48}
 							src={profile}
-							alt="LinkedIn Profile"
-							width={40}
-							height={40}
-							className="rounded-[50%] object-cover"
+							width={48}
 						/>
-						<p className="font-bold text-white">Julian Ezequiel Kominovic</p>
-						<p className="text-neutral-300">@jkominovic</p>
-					</footer>
-				</a>
-				<section className="flex flex-col w-full h-full col-span-2 gap-1 squircle bg-neutral-100 p-4">
-					<GitHubActivity />
-				</section>
+						Julian
+					</span>
+					Kominovic
+				</h1>
+				<div className="flex items-center flex-wrap mb-8">
+					<h2 className="font-serif text-4xl font-semibold mr-4">
+						Frontend Developer
+					</h2>{" "}
+					{/* <div className="flex items-center">
+						<Image
+							className="squircle size-12 shadow-border ring-2 ring-white -rotate-2 drop-shadow-lg -mx-2 -translate-y-2"
+							src={cssaward}
+							alt="CSS Award"
+							loading="eager"
+							height={48}
+							width={48}
+						/>
+						<Image
+							className="squircle size-12 shadow-border ring-2 ring-white rotate-2 drop-shadow-lg -mx-2"
+							src={backendfrontend1}
+							alt="Backend & Frontend Comparison"
+							loading="eager"
+							height={48}
+							width={48}
+						/>
+						<Image
+							className="squircle size-12 shadow-border ring-2 ring-white rotate-5 drop-shadow-lg -mx-2 translate-y-1.5"
+							src={backendfrontend2}
+							alt="Backend & Frontend Comparison 2"
+							loading="eager"
+							height={48}
+							width={48}
+						/>
+						<Image
+							className="squircle size-12 shadow-border ring-2 ring-white rotate-5 drop-shadow-lg -mx-2"
+							src={responsivedesignnightmare}
+							alt="Responsive Design Nightmare"
+							loading="eager"
+							height={48}
+							width={48}
+						/>
+						<Image
+							className="squircle size-12 shadow-border ring-2 ring-white -rotate-5 drop-shadow-lg -mx-2"
+							src={typesofheadache}
+							alt="Types of Headache"
+							loading="eager"
+							height={48}
+							width={48}
+						/>
+					</div> */}
+				</div>
+				<div className="flex items-center flex-wrap gap-2 text-neutral-400 mb-10">
+					<p className=" inline-block">Based in </p>
+					<div className="inline-flex items-center relative gap-2">
+						<Image
+							src={buenosairesmini}
+							alt="Buenos Aires, Argentina miniaturized"
+							className="bg-card shrink-0 squircle size-12 shadow-border ring-2 ring-white -rotate-2 drop-shadow-lg inline-block"
+							loading="eager"
+							height={48}
+							width={48}
+						/>
+						<p className="text-foreground flex items-center justify-center">
+							Buenos Aires, Argentina{" "}
+						</p>
+						<ArgentinaFlag className="size-6 rounded-[50%] shadow-border shrink-0 hidden md:inline-block" />
+					</div>
+					<p className=" inline-block">
+						More than 4 years of experience developing{" "}
+					</p>{" "}
+					<div className="flex items-center gap-2 text-foreground">
+						fintech products at{" "}
+						<Image
+							className="aspect-square squircle size-12 shadow-border ring-2 ring-white rotate-2 drop-shadow-lg inline-block bg-[#282828]"
+							src={WORKING_EXPERIENCE[0].logo}
+							alt={WORKING_EXPERIENCE[0].company}
+							width={48}
+							height={48}
+						/>
+					</div>
+					<p>
+						and a <i>lot</i> of
+					</p>
+					<p className="text-foreground">other stuff</p>
+				</div>
+				<div className="flex items-center gap-4 flex-wrap text-sm">
+					<a
+						href="https://x.com/juliankominovic"
+						target="_blank"
+						rel="noopener noreferrer"
+						className="flex justify-between py-4 px-6 bg-neutral-900 shadow-border drop-shadow-lg drop-shadow-neutral-900/20 rounded-4xl! squircle hover:scale-103 transition-transform duration-200 ease-out active:scale-97"
+					>
+						{/* <div>
+							<Image
+								src={xprofilepic}
+								alt="X Profile Pic"
+								width={32}
+								height={32}
+								className="rounded-[50%] size-8 object-cover"
+							/>
+							<p className="font-bold text-white">Juli Kominovic 🧉</p>
+							<p className="text-neutral-300">@julikominovic</p>
+						</div> */}
+						<XIcon className="size-6 text-white" />
+					</a>
+					<a
+						href="https://www.linkedin.com/in/jkominovic"
+						target="_blank"
+						rel="noopener noreferrer"
+						className="flex justify-between py-4 px-6 bg-[#007EBB] shadow-border drop-shadow-lg drop-shadow-[#007EBB]/20 rounded-4xl! squircle hover:scale-103 transition-transform duration-200 ease-out active:scale-97"
+					>
+						{/* <div>
+							<Image
+								src={profile}
+								alt="LinkedIn Profile"
+								width={32}
+								height={32}
+								className="rounded-[50%] size-8 object-cover"
+							/>
+							<p className="font-bold text-white">Julian Ezequiel Kominovic</p>
+							<p className="text-neutral-300">@jkominovic</p>
+						</div> */}
+						<LinkedinIcon className="text-white size-6" />
+					</a>
+					<a
+						href="https://github.com/JulianKominovic"
+						target="_blank"
+						rel="noopener noreferrer"
+						className="flex justify-between py-4 px-6 bg-black shadow-border drop-shadow-lg drop-shadow-black/20 rounded-4xl! squircle hover:scale-103 transition-transform duration-200 ease-out active:scale-97"
+					>
+						<GithubIcon className="size-6 text-white" />
+					</a>
+				</div>
 			</main>
+
 			<section id="projects" className="py-48 mx-auto max-w-5xl px-4">
 				<h2 className="text-6xl font-bold font-serif text-center leading-loose">
 					Projects
@@ -239,7 +186,7 @@ export default function Page() {
 					<TabsList className="bg-transparent h-auto flex-wrap-balance justify-center mx-auto">
 						{PROJECTS.map((project) => (
 							<TabsTrigger
-								className="size-32 squircle shadow-none! flex-auto group p-1 bg-transparent!"
+								className="size-32 squircle shadow-none! flex-auto group p-1 bg-transparent! relative"
 								key={`${project.title}title`}
 								value={project.title}
 							>
@@ -250,7 +197,10 @@ export default function Page() {
 									height={96}
 									unoptimized
 									loading="lazy"
-									className="size-24 object-cover squircle saturate-0 opacity-20 group-data-[state=active]:opacity-100 group-data-[state=active]:saturate-100 group-hover:saturate-100 transition-all duration-300"
+									className={cn(
+										"size-24 object-cover squircle saturate-0 opacity-20 group-data-[state=active]:opacity-100 group-data-[state=active]:saturate-100 group-hover:saturate-100 transition-all duration-150",
+										project.title === "Libritus" && "scale-115",
+									)}
 								/>
 							</TabsTrigger>
 						))}
@@ -264,7 +214,7 @@ export default function Page() {
 						>
 							<p
 								className={cn(
-									" font-bold font-serif px-2 leading-relaxed rounded-md flex items-center justify-center w-fit",
+									" font-bold font-serif px-2 leading-loose rounded-lg flex items-center justify-center w-fit mb-2",
 									project.status === "In progress" &&
 										"text-yellow-500 bg-yellow-500/10",
 									project.status === "Online" &&
@@ -276,14 +226,14 @@ export default function Page() {
 								{project.status}
 							</p>
 							<header className="flex justify-between items-center flex-wrap gap-4 group">
-								<h3 className="text-4xl font-bold font-serif leading-loose">
+								<h3 className="text-4xl font-serif leading-loose">
 									<a
 										className="flex items-center gap-2"
 										href={project.url}
 										target="_blank"
 										rel="noopener noreferrer"
 									>
-										<span className="text-neutral-900 font-bold underline underline-offset-4">
+										<span className="text-neutral-900 font-black underline underline-offset-4">
 											{project.title}
 										</span>{" "}
 										<ArrowUpRight className="size-6 mt-2" strokeWidth={3} />
@@ -338,7 +288,7 @@ export default function Page() {
 														loading="lazy"
 														src={progress.image}
 														alt={progress.title}
-														className="rounded-lg object-cover size-auto max-w-sm max-h-96 cursor-zoom-in"
+														className="rounded-xl drop-shadow-sm object-contain size-auto max-w-sm max-h-96 cursor-zoom-in"
 													/>
 												}
 												zoomed={
@@ -347,7 +297,7 @@ export default function Page() {
 														loading="lazy"
 														src={progress.image}
 														alt={progress.title}
-														className="rounded-lg object-cover size-full"
+														className="rounded-xl drop-shadow-sm object-contain size-full"
 													/>
 												}
 											/>
@@ -356,7 +306,7 @@ export default function Page() {
 											<video
 												src={progress.video}
 												loop
-												className="rounded-lg object-cover size-auto max-w-sm max-h-96"
+												className="rounded-xl drop-shadow-sm object-contain size-auto max-w-sm max-h-96"
 												preload="none"
 												poster={progress.image}
 												controls

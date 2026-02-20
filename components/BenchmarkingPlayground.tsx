@@ -293,7 +293,11 @@ function BenchmarkingPlayground({
 						</div>
 					}
 					defaultLanguage="javascript"
-					value={activeFile?.value ?? "// Create a new file to start"}
+					value={
+						typeof activeFile?.value === "string"
+							? activeFile.value
+							: "// Create a new file to start"
+					}
 					onChange={(value) =>
 						activeFile &&
 						!readonly &&
