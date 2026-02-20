@@ -1,7 +1,7 @@
 /** biome-ignore-all lint/suspicious/noArrayIndexKey: sh */
 import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import React, { useId } from "react";
+import React from "react";
 import { highlight } from "sugar-high";
 import BenchmarkingPlayground from "@/components/BenchmarkingPlayground";
 import LivePlayground from "@/components/LivePlayground";
@@ -17,30 +17,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "./ui/dialog";
-
-function Table({ headers, rows }: { headers: string[]; rows: string[][] }) {
-	const id = useId();
-	return (
-		<table>
-			<thead>
-				<tr>
-					{headers.map((header, index) => (
-						<th key={`${id}-header-${index}`}>{header}</th>
-					))}
-				</tr>
-			</thead>
-			<tbody>
-				{rows.map((row, index) => (
-					<tr key={`${id}-row-${index}`}>
-						{row.map((cell, cellIndex) => (
-							<td key={`${id}-cell-${index}-${cellIndex}`}>{cell}</td>
-						))}
-					</tr>
-				))}
-			</tbody>
-		</table>
-	);
-}
+import { SimpleTable } from "./ui/simple-table";
 
 function CustomLink(props) {
 	const href = props.href;
@@ -143,7 +120,7 @@ const components = {
 	img: CaptionedImage,
 	a: CustomLink,
 	code: Code,
-	Table,
+	SimpleTable,
 	BenchmarkingPlayground,
 	LivePlayground,
 	CacheableTweet,
@@ -160,6 +137,9 @@ export function CustomMDX(props) {
 		<MDXRemote
 			{...props}
 			components={{ ...components, ...(props.components || {}) }}
+			options={{
+				blockJS: false,
+			}}
 		/>
 	);
 }

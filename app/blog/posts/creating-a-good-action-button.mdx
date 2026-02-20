@@ -17,6 +17,7 @@ import {
   AlertTitle,
   AlertDescription,
 } from "../../../components/ui/alert";
+import {SimpleTable} from "../../../components/ui/simple-table";
 
 Buttons are a fundamental element of any user interface. They have thousands of use cases and are key to the user experience.
 
@@ -122,7 +123,7 @@ We already have a pretty clear picture of how colors play an important role in c
 
 At a high level:
 
-<Table
+<SimpleTable
   headers={["Color", "Meaning"]}
   rows={[
     [<b className="text-red-600">Red</b>, "Danger. Destructive actions. Irreversible consequences."],
