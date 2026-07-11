@@ -30,7 +30,7 @@ export default function Page() {
 				<p className="text-neutral-400 font-sans mb-1 font-semibold">
 					Hey, I'm
 				</p>
-				<h1 className="font-serif text-6xl font-bold flex items-center gap-2 mb-2 flex-wrap">
+				<h1 className="font-sans font-bold flex items-center gap-2 mb-2 flex-wrap">
 					<span className="flex items-center gap-2">
 						<Image
 							alt="Profile"
@@ -45,7 +45,7 @@ export default function Page() {
 					Kominovic
 				</h1>
 				<div className="flex items-center flex-wrap mb-8">
-					<h2 className="font-serif text-4xl font-semibold mr-4">
+					<h2 className="font-sans font-bold mr-4 text-muted-foreground">
 						Frontend Developer
 					</h2>{" "}
 					{/* <div className="flex items-center">
@@ -130,7 +130,7 @@ export default function Page() {
 						href="https://x.com/juliankominovic"
 						target="_blank"
 						rel="noopener noreferrer"
-						className="flex justify-between py-4 px-6 bg-neutral-900 shadow-border drop-shadow-lg drop-shadow-neutral-900/20 rounded-4xl! squircle hover:scale-103 transition-transform duration-200 ease-out active:scale-97"
+						className="flex justify-between py-4 px-6 bg-neutral-900 shadow-border drop-shadow-lg drop-shadow-neutral-900/20 rounded-4xl! squircle hover-lift active:scale-[0.97]"
 					>
 						{/* <div>
 							<Image
@@ -149,7 +149,7 @@ export default function Page() {
 						href="https://www.linkedin.com/in/jkominovic"
 						target="_blank"
 						rel="noopener noreferrer"
-						className="flex justify-between py-4 px-6 bg-[#007EBB] shadow-border drop-shadow-lg drop-shadow-[#007EBB]/20 rounded-4xl! squircle hover:scale-103 transition-transform duration-200 ease-out active:scale-97"
+						className="flex justify-between py-4 px-6 bg-[#007EBB] shadow-border drop-shadow-lg drop-shadow-[#007EBB]/20 rounded-4xl! squircle hover-lift active:scale-[0.97]"
 					>
 						{/* <div>
 							<Image
@@ -168,7 +168,7 @@ export default function Page() {
 						href="https://github.com/JulianKominovic"
 						target="_blank"
 						rel="noopener noreferrer"
-						className="flex justify-between py-4 px-6 bg-black shadow-border drop-shadow-lg drop-shadow-black/20 rounded-4xl! squircle hover:scale-103 transition-transform duration-200 ease-out active:scale-97"
+						className="flex justify-between py-4 px-6 bg-black shadow-border drop-shadow-lg drop-shadow-black/20 rounded-4xl! squircle hover-lift active:scale-[0.97]"
 					>
 						<GithubIcon className="size-6 text-white" />
 					</a>
@@ -176,7 +176,7 @@ export default function Page() {
 			</main>
 
 			<section id="projects" className="py-48 mx-auto max-w-5xl px-4">
-				<h2 className="text-6xl font-bold font-serif text-center leading-loose">
+				<h2 className="text-6xl font-bold font-sans text-center leading-normal">
 					Projects
 				</h2>
 				<p className="text-center text-2xl text-neutral-400 mb-8">
@@ -198,7 +198,7 @@ export default function Page() {
 									unoptimized
 									loading="lazy"
 									className={cn(
-										"size-24 object-cover squircle saturate-0 opacity-20 group-data-[state=active]:opacity-100 group-data-[state=active]:saturate-100 group-hover:saturate-100 transition-all duration-150",
+										"size-24 object-cover squircle saturate-0 opacity-20 group-data-[state=active]:opacity-100 group-data-[state=active]:saturate-100 group-hover:saturate-100 transition-[opacity,filter,transform] duration-150 ease-[var(--ease-out)]",
 										project.title === "Libritus" && "scale-115",
 									)}
 								/>
@@ -214,7 +214,7 @@ export default function Page() {
 						>
 							<p
 								className={cn(
-									" font-bold font-serif px-2 leading-loose rounded-lg flex items-center justify-center w-fit mb-2",
+									" font-bold px-2 leading-loose rounded-lg flex items-center justify-center w-fit mb-2",
 									project.status === "In progress" &&
 										"text-yellow-500 bg-yellow-500/10",
 									project.status === "Online" &&
@@ -226,7 +226,7 @@ export default function Page() {
 								{project.status}
 							</p>
 							<header className="flex justify-between items-center flex-wrap gap-4 group">
-								<h3 className="text-4xl font-serif leading-loose">
+								<h3 className="text-4xl font-sans leading-loose">
 									<a
 										className="flex items-center gap-2"
 										href={project.url}
@@ -271,7 +271,7 @@ export default function Page() {
 													})}
 												</time>
 											)}
-											<h4 className="text-2xl font-bold font-serif leading-loose">
+											<h4 className="text-2xl font-bold font-sans leading-loose">
 												{progress.title}
 											</h4>
 											{progress.description && (

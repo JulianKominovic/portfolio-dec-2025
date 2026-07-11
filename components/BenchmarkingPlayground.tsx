@@ -347,7 +347,7 @@ function BenchmarkingPlayground({
 			</Card>
 			{results.length > 0 && (
 				<>
-					<h2 className="font-serif text-3xl font-bold leading-loose">
+					<h2 className="font-sans text-3xl font-bold leading-loose">
 						Results
 					</h2>
 					<AvgRunTime

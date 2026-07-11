@@ -4,7 +4,7 @@ import { EcommerceCheckoutExample } from "@/components/blog/creating-a-good-acti
 function LabsPage() {
 	return (
 		<main className="mx-auto max-w-3xl px-4 pt-20">
-			<h1 className="font-serif text-5xl font-bold leading-tight mb-12">
+			<h1 className="font-sans text-5xl font-bold leading-tight mb-12">
 				Labs
 			</h1>
 

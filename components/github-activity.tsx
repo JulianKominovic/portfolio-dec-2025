@@ -96,7 +96,7 @@ export default async function GitHubActivity() {
 					className="rounded-[50%]"
 				/>
 				<div className="flex-1 mb-2">
-					<h2 className="font-serif text-sm">
+					<h2 className="font-sans text-sm">
 						{data.profile.name || data.profile.login}
 					</h2>
 					{data.profile.bio && (

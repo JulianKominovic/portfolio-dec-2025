@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function NotFound() {
 	return (
 		<main className="mx-auto max-w-5xl px-4 pt-20">
-			<h1 className="title font-serif text-5xl font-bold! leading-tight mb-8">
+			<h1 className="title font-sans text-5xl font-bold! leading-tight mb-8">
 				404 - Page Not Found
 			</h1>
 			<p className="text-neutral-600">

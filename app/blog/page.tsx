@@ -41,7 +41,7 @@ export const metadata = createMetadata({
 export default function Page() {
 	return (
 		<main className="mx-auto max-w-3xl px-4 pt-20">
-			<h1 className="font-serif text-5xl font-bold leading-loose mb-8">
+			<h1 className="font-sans text-5xl font-bold leading-loose mb-8">
 				Blog posts
 			</h1>
 			<BlogPosts />

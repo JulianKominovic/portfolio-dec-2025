@@ -10,7 +10,7 @@ import LinkedinIcon from "./ui/icons/linkedin";
 import XIcon from "./ui/icons/x";
 
 const linksClasses =
-	"block mb-2 text-neutral-600 hover:text-black transition-colors";
+	"block mb-2 text-neutral-600 hover:text-black transition-colors duration-150 ease-[var(--ease-out)] active:opacity-70";
 
 export default async function Footer() {
 	const blogposts = await getBlogPostsSitemap();
@@ -20,7 +20,9 @@ export default async function Footer() {
 				<div className="flex flex-wrap lg:justify-center gap-x-24 gap-y-8">
 					{/* Navigation */}
 					<div>
-						<h3 className="font-semibold text-neutral-900 mb-4">Navigation</h3>
+						<h3 className="font-semibold text-neutral-900 mb-4 text-base">
+							Navigation
+						</h3>
 						<ul className="max-w-[40ch] overflow-x-hidden">
 							{routes.map((item) => {
 								if (item.url === baseUrl) {
@@ -99,7 +101,9 @@ export default async function Footer() {
 
 					{/* Projects */}
 					<div>
-						<h3 className="font-semibold text-neutral-900 mb-4">Projects</h3>
+						<h3 className="font-semibold text-neutral-900 mb-4 text-base">
+							Projects
+						</h3>
 						<ul>
 							{PROJECTS.map((project) => (
 								<li key={project.title} className="mb-4">
@@ -120,7 +124,7 @@ export default async function Footer() {
 										{project.title}{" "}
 										<p
 											className={cn(
-												" font-bold text-xs font-serif px-2 leading-relaxed rounded-md flex items-center justify-center w-fit",
+												" font-bold text-xs font-sans px-2 leading-relaxed rounded-md flex items-center justify-center w-fit",
 												project.status === "In progress" &&
 													"text-yellow-500 bg-yellow-500/10",
 												project.status === "Online" &&
@@ -168,7 +172,7 @@ export default async function Footer() {
 									href={value.url}
 									target="_blank"
 									rel="noopener noreferrer"
-									className="text-neutral-400 hover:text-black transition-colors"
+									className="text-neutral-400 hover:text-black transition-[color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.97] inline-flex"
 								>
 									<Icon className="size-5" />
 								</a>

@@ -4,22 +4,21 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import clsx from "clsx";
 import { GeistMono } from "geist/font/mono";
 import type { Metadata } from "next";
-// import { Alata } from "next/font/google";
-import { Inter } from "next/font/google";
+import { Great_Vibes, Inter } from "next/font/google";
 import { createMetadata } from "@/lib/utils";
 import Footer from "../components/footer";
 
 export const metadata: Metadata = createMetadata({});
 
-// const alata = Alata({
-// 	subsets: ["latin"],
-// 	weight: ["400"],
-// 	variable: "--font-alata",
-// });
+const serifFont = Great_Vibes({
+	subsets: ["latin"],
+	weight: "400",
+	variable: "--font-great-vibes",
+});
 
 const inter = Inter({
 	subsets: ["latin"],
-	weight: ["500", "600", "700", "800"],
+	weight: "variable",
 	variable: "--font-inter",
 });
 
@@ -32,11 +31,9 @@ export default function RootLayout({
 		<html
 			className={clsx(
 				"bg-background text-foreground",
-				// GeistSans.variable,
 				GeistMono.variable,
-				// alata.variable,
 				inter.variable,
-				// youngSerif.variable
+				serifFont.variable,
 			)}
 			lang="en"
 		>

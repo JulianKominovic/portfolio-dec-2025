@@ -24,7 +24,7 @@ export const metadata: Metadata = createMetadata({
 export default function BenchmarksPage() {
 	return (
 		<main className="mx-auto max-w-5xl px-4 pt-20">
-			<h1 className="font-serif text-5xl font-bold leading-tight">
+			<h1 className="font-sans text-5xl font-bold leading-tight">
 				Benchmarks
 			</h1>
 			<h2 className="mb-16 text-muted-foreground">
@@ -122,7 +122,7 @@ export default function BenchmarksPage() {
 					},
 				]}
 			/>
-			<h2 className="font-serif text-3xl font-bold leading-loose">Tips</h2>
+			<h2 className="font-sans text-3xl font-bold leading-loose">Tips</h2>
 			<ul className="mb-12 list-disc list-inside text-neutral-600">
 				<li>
 					<b className="text-neutral-900">Use bigger test data sets</b> whenever
@@ -130,7 +130,7 @@ export default function BenchmarksPage() {
 					the first file and only initialized once before the tests are run.
 				</li>
 			</ul>
-			<h2 className="font-serif text-3xl font-bold leading-loose">
+			<h2 className="font-sans text-3xl font-bold leading-loose">
 				Disclaimers
 			</h2>
 			<ul className="list-disc list-inside text-neutral-600">

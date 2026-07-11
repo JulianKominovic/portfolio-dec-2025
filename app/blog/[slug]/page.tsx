@@ -101,7 +101,7 @@ export default async function Blog({
 					}),
 				}}
 			/>
-			<h1 className="title font-serif text-5xl font-bold leading-tight mb-0">
+			<h1 className="title font-sans text-5xl font-bold leading-tight mb-0">
 				{post.metadata.title}
 			</h1>
 			<div className="flex justify-between items-center mb-8 text-sm">
