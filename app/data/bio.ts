@@ -172,7 +172,7 @@ export const PROJECTS: {
 		year: 2025,
 	},
 	{
-		status: "In progress",
+		status: "Deprecated",
 		title: "Braindump",
 		description:
 			"Capture your thoughts as they come. Find them the way your mind would.",

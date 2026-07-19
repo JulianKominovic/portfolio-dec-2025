@@ -91,7 +91,7 @@ export default function Page() {
 						/>
 					</div> */}
 				</div>
-				<div className="flex items-center flex-wrap gap-2 text-neutral-400 mb-10">
+				<div className="flex items-center flex-wrap gap-x-2 gap-y-1 text-neutral-400 mb-10">
 					<p className=" inline-block">Based in </p>
 					<div className="inline-flex items-center relative gap-2">
 						<Image
