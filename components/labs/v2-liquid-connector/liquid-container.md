@@ -3,7 +3,7 @@
 Documento de handoff del experimento **liquid eject** en labs: un ancla con un solo SVG path deformable y un anexo DOM que se eyecta hacia arriba con sensación gooey, sin filtro CSS `gooey` / blur de fusión.
 
 **Demo:** [`/labs`](../../../app/labs/page.tsx) → sección “Liquid eject”  
-**Código:** [`test-v2.tsx`](./test-v2.tsx) · [`gooey-path.ts`](./gooey-path.ts)
+**Código:** [`liquid-eject.tsx`](./liquid-eject.tsx) · [`test-v2.tsx`](./test-v2.tsx) (demo) · [`gooey-path.ts`](./gooey-path.ts)
 
 ---
 
@@ -23,14 +23,14 @@ Construir un efecto liquid/gooey **solo con SVG** (un path fill plano), compuest
 
 - Cualquier React/HTML hijo, inicialmente compacto (disco ~40px), `opacity: 0`, `overflow: hidden`
 - Parte desde el centro del ancla y se despliega **hacia arriba en el eje Y**
-- Tras despegarse, revela contenido: blur 8→0, opacity→1, width/height → target medido
+- Tras despegarse, revela contenido: blur 8→0, opacity→1, width/height → `annexWidth`/`annexHeight` (o medido si no se pasan)
 
 ### Secuencia pedida (open)
 
 1. **Idle** — ancla como un rect redondeado normal; anexo invisible en el centro
 2. **Impulso / windup** — squash del ancla (`scaleY`↓, `scaleX`↑) + hendidura suave en el centro del borde superior del path
-3. **Eject** — el anexo sube; la hendidura se invierte en un bulto que crece en sync (cuello visual)
-4. **Detach** — al quedar el anexo claro del ancla, el cuello se corta rápido (top flat de nuevo); squash + spring de rebote en el ancla; el anexo se expande y revela
+3. **Eject + stretch** — el anexo sube *pasando* el flush; el bulto crece en sync y forma un cuello líquido visible (~`STRETCH_GAP` px de aire + embed en el disco)
+4. **Detach** — solo cerca del pico del stretch el cuello se corta; squash + spring de rebote en el ancla; el anexo se expande y revela
 
 El color del path y el fondo del disco anexo deben ser **el mismo** para que el cuello se lea continuo.
 
@@ -40,13 +40,35 @@ El color del path y el fondo del disco anexo deben ser **el mismo** para que el 
 
 ### API
 
+Compound component estilo shadcn: root + `Anchor` / `Annex` con props nativas de HTML. `Anchor` y `Annex` son polimórficos (`as` + `asChild` vía `@radix-ui/react-slot`).
+
 ```tsx
-<LiquidEject open={open} fill="#1c1c1e" radius={18} annexSize={40} clearGap={10}>
-  <LiquidEject.Anchor>Now Playing</LiquidEject.Anchor>
-  <LiquidEject.Annex>
+<LiquidEject
+  open={open}
+  fill="#1c1c1e"
+  radius={18}
+  annexSize={40}
+  annexWidth={240}
+  annexHeight={100}
+  clearGap={10}
+>
+  <LiquidEject.Anchor
+    as="button"
+    type="button"
+    onClick={() => setOpen((v) => !v)}
+    aria-expanded={open}
+  >
+    Now Playing
+  </LiquidEject.Anchor>
+  <LiquidEject.Annex role="region" aria-label="Details">
     Contenido que se revela al abrir.
   </LiquidEject.Annex>
 </LiquidEject>
+
+// o con asChild (el hijo provee el tag)
+<LiquidEject.Anchor asChild>
+  <a href="/now-playing">Now Playing</a>
+</LiquidEject.Anchor>
 ```
 
 | Prop | Rol |
@@ -54,9 +76,17 @@ El color del path y el fondo del disco anexo deben ser **el mismo** para que el 
 | `open` | Dispara open / close |
 | `fill` | Color del path SVG y del disco anexo |
 | `radius` | Radio del path (no CSS `border-radius` en el ancla) |
-| `annexSize` | Diámetro del disco en idle / vuelo |
+| `annexSize` | Diámetro del disco en idle / vuelo (independiente del tamaño abierto) |
+| `annexWidth` | Ancho del anexo abierto (px); si falta, se mide el contenido |
+| `annexHeight` | Alto del anexo abierto (px); si falta, se mide el contenido |
 | `clearGap` | Separación (px) entre bottom del anexo y top del ancla cuando está abierto |
 | `speed` | 0→1 mapea a springs (`springFromSpeed`) |
+| `as` (Anchor/Annex) | Tag HTML (`div` por defecto); p. ej. `button`, `a`, `section` |
+| `asChild` (Anchor/Annex) | Fusiona props en el hijo único vía Radix `Slot` |
+
+Root también acepta `React.ComponentProps<"div">` (`className`, `id`, event handlers, …).
+
+La medición off-screen siempre usa `div` neutros (no `as` / `asChild`) para no distorsionar el tamaño.
 
 `LiquidEjectScrub` + demo permiten inspeccionar `topDisplace` sin spring.
 
@@ -92,16 +122,18 @@ Con eso, el borde inferior del anexo queda exactamente `gap` px por encima del b
 ### Open
 
 1. **Windup (~150ms)** — squash + dent (`topDisplace → -8`) + disco anexo visible
-2. **Eject** — `annexY → annexLiftY(..., 0)` (flush con el top del ancla); `topDisplace` crece en sync (bulto/cuello)
-3. **Detach** — `topDisplace → 0` rápido; squash corto + spring rebote marcado en el ancla
-4. **Reveal** — blur 8→0, content opacity→1, size→medido, `annexY → annexLiftY(..., clearGap)`
+2. **Eject + stretch** — `annexY → annexLiftY(..., STRETCH_GAP)` (pasado el flush); `topDisplace → neckBulge(STRETCH_GAP)` (puente + embed en el disco); campana más estrecha al crecer
+3. **Detach** — cerca del pico (~94% del travel y bulge ≥ 85%); `topDisplace → 0`; squash corto + spring rebote marcado en el ancla
+4. **Reveal** — blur 8→0, content opacity→1, size→`annexWidth`/`annexHeight` (o medido), `annexY → annexLiftY(..., clearGap)`
 
 ### Close (espejo; se añadió en iteración)
 
-1. **Collapse** — content off, blur in, vuelve a disco; permanece arriba
-2. **Re-dock** — bulto del SVG crece hasta el disco; `detached → false`
+1. **Collapse** — content off, blur in, vuelve a disco; se acerca a `STRETCH_GAP` con bulge de puente
+2. **Re-dock** — `detached → false` al reenganchar; asienta a flush con bulge de merge
 3. **Retract** — disco + bulto bajan juntos hasta el centro del ancla
 4. **Absorb** — anexo opacity→0, path flat, squash + spring de asentamiento
+
+El bulge del cuello de stretch es `STRETCH_GAP + NECK_EMBED`, capado a `annexSize * 1.55`. El `borderRadius` del anexo morphéa pill → radius con el reveal.
 
 `prefers-reduced-motion`: salta al estado final abierto o cerrado.
 
@@ -114,6 +146,8 @@ Con eso, el borde inferior del anexo queda exactamente `gap` px por encima del b
 3. **Animación de cierre** — al principio el close era un fade/shrink corto; se reescribió como espejo del open (collapse → re-dock → retract → absorb).
 4. **“Por encima del ancla”** — no era z-index: el travel fijo (~24px) dejaba el anexo solapado. Se calculó lift dinámico para que quede **totalmente arriba en Y**, con `clearGap` al abrir.
 5. **Pico en el path** — dent/bulge se veía puntiagudo. Se corrigió con tangente horizontal en el apex y handles más anchos proporcionales a la amplitud.
+6. **Cuello corto / detach temprano** — el corte ocurría ~80% del travel a flush (aún solapados), así que nunca se veía stretch. Se añadió fase `STRETCH_GAP` + `NECK_EMBED`, detach ~94%, travel spring más suave y campana más estrecha al estirar.
+7. **API shadcn** — se extrajo `liquid-eject.tsx`; Anchor/Annex tipan props nativas HTML y son polimórficos (`as` + `asChild`/`Slot`).
 
 ---
 
@@ -135,7 +169,8 @@ El contenido del ancla (texto/icono) va en un layer encima del SVG.
 | Archivo | Qué hace |
 |---------|----------|
 | [`gooey-path.ts`](./gooey-path.ts) | `roundedRectPath`, `anchorSurfacePath`, (legacy) `gooeyPairPath` |
-| [`test-v2.tsx`](./test-v2.tsx) | `LiquidEject`, scrub, demo, springs |
+| [`liquid-eject.tsx`](./liquid-eject.tsx) | `LiquidEject` compound + springs + polymorphic Anchor/Annex |
+| [`test-v2.tsx`](./test-v2.tsx) | Scrub + labs demo |
 | [`app/labs/page.tsx`](../../../app/labs/page.tsx) | Monta `LiquidEjectDemo` |
 
 Relacionado: demo en [`app/labs/page.tsx`](../../../app/labs/page.tsx).
@@ -144,6 +179,6 @@ Relacionado: demo en [`app/labs/page.tsx`](../../../app/labs/page.tsx).
 
 ## Criterio de “se ve bien”
 
-Open legible: idle → squash+hendidura → bulto sync con disco que sube **hasta quedar claro del ancla** → corte de cuello → rebote → reveal blureado.  
-Close legible: collapse arriba → reenganche → bajada conjunta → absorción.  
+Open legible: idle → squash+hendidura → bulto sync con disco que sube **y estira un cuello** → corte cerca del pico → rebote → reveal blureado.  
+Close legible: collapse → reenganche con cuello → flush → bajada conjunta → absorción.  
 Scrub de `topDisplace`: campana redonda, sin pico en crest ni valley.
