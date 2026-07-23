@@ -49,6 +49,7 @@ export function LiquidEjectDemo() {
 	const [speed, setSpeed] = useState(0.8);
 	const [scrub, setScrub] = useState(false);
 	const [scrubDisplace, setScrubDisplace] = useState(0);
+	const [sound, setSound] = useState(true);
 	const spring = springFromSpeed(speed);
 
 	return (
@@ -81,6 +82,14 @@ export function LiquidEjectDemo() {
 						onChange={(e) => setScrub(e.target.checked)}
 					/>
 					Scrub displace
+				</label>
+				<label className="flex items-center gap-2 text-sm text-neutral-500">
+					<input
+						type="checkbox"
+						checked={sound}
+						onChange={(e) => setSound(e.target.checked)}
+					/>
+					Sound
 				</label>
 			</div>
 
@@ -140,6 +149,7 @@ export function LiquidEjectDemo() {
 						annexWidth={240}
 						annexHeight={100}
 						fill="#1c1c1e"
+						sound={sound}
 					>
 						<LiquidEject.Anchor
 							className="select-none"

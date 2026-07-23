@@ -22,7 +22,9 @@ import {
 	useRef,
 	useState,
 } from "react";
+import { useSound } from "@/hooks/use-sound";
 import { cn } from "@/lib/utils";
+import { drop004Sound } from "@/sounds/drop-004";
 import { anchorSurfacePath, type GooeyRect } from "./gooey-path";
 
 export type GooeySpringConfig = {
@@ -236,6 +238,8 @@ export type LiquidEjectProps = Omit<
 	annexHeight?: number;
 	/** Gap (px) between annex bottom and anchor top when open / after detach. */
 	clearGap?: number;
+	/** Play drop sound on neck detach. Default true. */
+	sound?: boolean;
 };
 
 type Frame = {
@@ -287,11 +291,21 @@ export function LiquidEject({
 	annexWidth,
 	annexHeight,
 	clearGap = CLEAR_GAP,
+	sound = true,
 	className,
 	style,
 	...rootProps
 }: LiquidEjectProps) {
 	const reduced = useReducedMotion() ?? false;
+	const [playDetach] = useSound(drop004Sound, {
+		soundEnabled: sound,
+		volume: 0.45,
+		interrupt: true,
+	});
+	const playDetachSound = useEffectEvent(() => {
+		if (reduced || !sound) return;
+		playDetach();
+	});
 	const anchorSlot = pickSlot(children, AnchorSlot);
 	const annexSlot = pickSlot(children, AnnexSlot);
 	const anchor = splitPolymorphic(anchorSlot?.props);
@@ -570,6 +584,7 @@ export function LiquidEject({
 				if (cancelled) return;
 
 				detachedMv.jump(1);
+				playDetachSound();
 
 				// Neck cut + rebound + reveal overlap into one continuous beat.
 				track(

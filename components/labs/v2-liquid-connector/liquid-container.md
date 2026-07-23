@@ -81,6 +81,7 @@ Compound component estilo shadcn: root + `Anchor` / `Annex` con props nativas de
 | `annexHeight` | Alto del anexo abierto (px); si falta, se mide el contenido |
 | `clearGap` | Separación (px) entre bottom del anexo y top del ancla cuando está abierto |
 | `speed` | 0→1 mapea a springs (`springFromSpeed`) |
+| `sound` | `drop004` en detach vía `useSound` (default `true`) |
 | `as` (Anchor/Annex) | Tag HTML (`div` por defecto); p. ej. `button`, `a`, `section` |
 | `asChild` (Anchor/Annex) | Fusiona props en el hijo único vía Radix `Slot` |
 
@@ -170,6 +171,8 @@ El contenido del ancla (texto/icono) va en un layer encima del SVG.
 |---------|----------|
 | [`gooey-path.ts`](./gooey-path.ts) | `roundedRectPath`, `anchorSurfacePath`, (legacy) `gooeyPairPath` |
 | [`liquid-eject.tsx`](./liquid-eject.tsx) | `LiquidEject` compound + springs + polymorphic Anchor/Annex |
+| [`../../hooks/use-sound.ts`](../../../hooks/use-sound.ts) | Hook `useSound` sobre `sound-engine` |
+| [`../../sounds/drop-004.ts`](../../../sounds/drop-004.ts) | Asset `drop004Sound` (Kenney, CC0) |
 | [`test-v2.tsx`](./test-v2.tsx) | Scrub + labs demo |
 | [`app/labs/page.tsx`](../../../app/labs/page.tsx) | Monta `LiquidEjectDemo` |
 
