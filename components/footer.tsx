@@ -90,6 +90,32 @@ export default async function Footer() {
 										</Fragment>
 									);
 								}
+								if (item.url.startsWith(`${baseUrl}/labs`)) {
+									return (
+										<Fragment key={item.url + item.title}>
+											<li className={linksClasses}>
+												<Link href={item.url}>{item.title}</Link>
+											</li>
+											<li className={"pl-4 mb-4"}>
+												<ul>
+													{Object.entries(subroutes.labs).map(
+														([key, value]) => (
+															<li
+																key={`${key}labs`}
+																className={cn(
+																	linksClasses,
+																	"text-neutral-400 mb-2",
+																)}
+															>
+																<Link href={value.url}>{value.title}</Link>
+															</li>
+														),
+													)}
+												</ul>
+											</li>
+										</Fragment>
+									);
+								}
 								return (
 									<li key={item.url} className={linksClasses}>
 										<Link href={item.url}>{item.title}</Link>

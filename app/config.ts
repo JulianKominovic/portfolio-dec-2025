@@ -14,6 +14,20 @@ export const subroutes = {
 			title: "Projects",
 		},
 	},
+	labs: {
+		contextMenu: {
+			url: `${baseUrl}/labs#context-menu`,
+			title: "Context menu",
+		},
+		liquidEject: {
+			url: `${baseUrl}/labs#liquid-eject`,
+			title: "Liquid eject",
+		},
+		purchaseButton: {
+			url: `${baseUrl}/labs#purchase-button`,
+			title: "Purchase button",
+		},
+	},
 };
 
 export const routes = [

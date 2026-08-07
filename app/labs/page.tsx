@@ -25,7 +25,7 @@ function LabsPage() {
 			<h1 className="font-sans text-5xl font-bold leading-tight mb-12 mx-auto max-w-3xl">
 				Labs
 			</h1>
-			<section className="mb-32">
+			<section id="context-menu" className="mb-32">
 				<h2 className="text-2xl font-bold mb-4 flex flex-wrap items-center justify-between mx-auto max-w-3xl">
 					Cinematic context menu{" "}
 					<time dateTime="2026-07-24" className="text-neutral-400 text-sm">
@@ -39,7 +39,7 @@ function LabsPage() {
 
 				<CinematicContextMenuDemo />
 			</section>
-			<section className="mb-32 mx-auto max-w-3xl">
+			<section id="liquid-eject" className="mb-32 mx-auto max-w-3xl">
 				<h2 className="text-2xl font-bold mb-4 flex flex-wrap items-center justify-between">
 					Liquid eject{" "}
 					<time dateTime="2026-07-22" className="text-neutral-400 text-sm">
@@ -56,7 +56,7 @@ function LabsPage() {
 					<LiquidEjectDemo />
 				</div>
 			</section>
-			<section className="mb-32 mx-auto max-w-3xl">
+			<section id="purchase-button" className="mb-32 mx-auto max-w-3xl">
 				<h2 className="text-2xl font-bold mb-4 flex flex-wrap items-center justify-between">
 					Purchase button{" "}
 					<time dateTime="2026-01-16" className="text-neutral-400 text-sm">

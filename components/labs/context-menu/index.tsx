@@ -135,6 +135,7 @@ function ContextMenu({
 	const [triggerEl, setTriggerEl] = useState<HTMLDivElement | null>(null);
 	const [elevatedEl, setElevatedEl] = useState<HTMLDivElement | null>(null);
 	const [mounted, setMounted] = useState(false);
+	const [returning, setReturning] = useState(false);
 	const triggerChildrenRef = useRef<ReactNode>(null);
 
 	useEffect(() => {
@@ -181,10 +182,15 @@ function ContextMenu({
 				height: rect.height,
 			});
 			setClampedRect(clampRectToViewport(rect));
+			setReturning(false);
+		} else if (!next && clampedRect) {
+			setReturning(true);
 		}
 		setOpen(next);
 		onOpenChange?.(next);
 	};
+
+	const triggerVisible = open || returning;
 
 	const side = sideFromPlacement(placement);
 	const enterOffset = enterOffsetForSide(side);
@@ -210,14 +216,14 @@ function ContextMenu({
 
 	const backdropMask: CSSProperties | undefined = clampedRect
 		? {
-				maskImage: `radial-gradient(circle at ${maskCenter.x}px ${maskCenter.y}px, #000 0%, #000 20%, transparent 100%)`,
-				WebkitMaskImage: `radial-gradient(circle at ${maskCenter.x}px ${maskCenter.y}px, #000 0%, #000 20%, transparent 100%)`,
+				maskImage: `radial-gradient(circle at ${maskCenter.x}px ${maskCenter.y}px, #000 0%, #000 40%, transparent 100%)`,
+				WebkitMaskImage: `radial-gradient(circle at ${maskCenter.x}px ${maskCenter.y}px, #000 0%, #000 40%, transparent 100%)`,
 			}
 		: undefined;
 
 	const value = useMemo<ContextMenuContextValue>(
 		() => ({
-			open,
+			open: triggerVisible,
 			layoutId,
 			originRect,
 			clampedRect,
@@ -239,7 +245,7 @@ function ContextMenu({
 			mounted,
 		}),
 		[
-			open,
+			triggerVisible,
 			layoutId,
 			originRect,
 			clampedRect,
@@ -275,7 +281,7 @@ function ContextMenu({
 					{mounted &&
 						createPortal(
 							<>
-								<AnimatePresence>
+								<AnimatePresence onExitComplete={() => setReturning(false)}>
 									{open && clampedRect ? (
 										<motion.div
 											key="context-menu-backdrop"
@@ -294,7 +300,7 @@ function ContextMenu({
 									) : null}
 								</AnimatePresence>
 
-								{open && clampedRect ? (
+								{triggerVisible && clampedRect ? (
 									<motion.div
 										ref={elevatedRef}
 										layoutId={layoutId}
