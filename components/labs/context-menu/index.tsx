@@ -14,13 +14,6 @@ import {
 	motion,
 	useReducedMotion,
 } from "framer-motion";
-import {
-	ArchiveIcon,
-	CopyIcon,
-	PencilIcon,
-	ShareIcon,
-	Trash2Icon,
-} from "lucide-react";
 import { ContextMenu as ContextMenuPrimitive } from "radix-ui";
 import {
 	type ComponentProps,
@@ -128,9 +121,12 @@ function enterOffsetForSide(side: Side) {
 function ContextMenu({
 	modal = true,
 	onOpenChange,
+	backdropClassName,
 	children,
 	...props
-}: ComponentProps<typeof ContextMenuPrimitive.Root>) {
+}: ComponentProps<typeof ContextMenuPrimitive.Root> & {
+	backdropClassName?: string;
+}) {
 	const layoutId = useId();
 	const reducedMotion = useReducedMotion() ?? false;
 	const [open, setOpen] = useState(false);
@@ -285,7 +281,10 @@ function ContextMenu({
 											key="context-menu-backdrop"
 											aria-hidden
 											data-slot="context-menu-backdrop"
-											className="fixed inset-0 z-40 bg-white backdrop-blur-md"
+											className={cn(
+												"fixed inset-0 z-40 bg-white backdrop-blur-md",
+												backdropClassName,
+											)}
 											style={backdropMask}
 											initial={{ opacity: 0 }}
 											animate={{ opacity: 1 }}
@@ -459,13 +458,13 @@ function ContextMenuItem({
 				data-variant={variant}
 				className={cn(
 					"flex w-full cursor-default items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm outline-none select-none",
-					"text-neutral-800 data-highlighted:bg-neutral-100",
+					"text-foreground data-highlighted:bg-accent data-highlighted:text-accent-foreground",
 					"active:scale-[0.98] transition-transform duration-150",
 					"data-disabled:pointer-events-none data-disabled:opacity-50",
 					"data-inset:pl-8",
 					"[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
 					variant === "destructive" &&
-						"text-red-600 data-highlighted:bg-red-50 data-highlighted:text-red-700 [&_svg]:text-red-500",
+						"text-destructive data-highlighted:bg-destructive/10 data-highlighted:text-destructive [&_svg]:text-destructive",
 					className,
 				)}
 				{...props}
@@ -496,7 +495,7 @@ function ContextMenuLabel({
 			data-slot="context-menu-label"
 			data-inset={inset}
 			className={cn(
-				"px-2.5 py-1.5 text-sm font-medium text-neutral-500 data-inset:pl-8",
+				"px-2.5 py-1.5 text-sm font-medium text-muted-foreground data-inset:pl-8",
 				className,
 			)}
 			{...props}
@@ -519,7 +518,7 @@ function ContextMenuSeparator({
 		>
 			<ContextMenuPrimitive.Separator
 				data-slot="context-menu-separator"
-				className={cn("my-1 h-px bg-black/8", className)}
+				className={cn("my-1 h-px bg-border", className)}
 				{...props}
 			/>
 		</motion.div>
@@ -531,85 +530,11 @@ function ContextMenuShortcut({ className, ...props }: ComponentProps<"span">) {
 		<span
 			data-slot="context-menu-shortcut"
 			className={cn(
-				"ml-auto font-mono text-[10px] tracking-widest text-neutral-400",
+				"ml-auto font-mono text-[10px] tracking-widest text-muted-foreground",
 				className,
 			)}
 			{...props}
 		/>
-	);
-}
-
-function DemoTriggerCard({ className }: { className?: string }) {
-	return (
-		<div
-			className={cn(
-				"w-full select-none rounded-2xl border border-black/8 bg-neutral-50 p-4 shadow-border",
-				className,
-			)}
-		>
-			<div className="mb-3 aspect-16/10 overflow-hidden rounded-xl bg-linear-to-br from-neutral-200 via-neutral-100 to-neutral-300">
-				<div className="flex h-full items-end p-3">
-					<span className="rounded-md bg-white/80 px-2 py-1 font-mono text-[10px] tracking-wide text-neutral-600 backdrop-blur-sm">
-						Right-click me
-					</span>
-				</div>
-			</div>
-			<p className="text-balance text-base font-medium text-neutral-900">
-				Cinematic context menu
-			</p>
-			<p className="mt-1 text-pretty text-sm text-neutral-500">
-				Scroll so this card is clipped, then right-click — the trigger lifts
-				into view and leaves an empty slot behind.
-			</p>
-		</div>
-	);
-}
-
-export function CinematicContextMenuDemo() {
-	return (
-		<div className="h-190 overflow-auto rounded-xl bg-card shadow-border mx-auto">
-			<div className="flex min-h-190 flex-col justify-end px-4 pt-16 pb-6 w-[200vw] bg-card">
-				<p className="mb-4 text-center text-xs text-neutral-400">
-					Scroll down, then right-click the card near the edge
-				</p>
-				<div className="flex justify-center">
-					<ContextMenu>
-						<ContextMenuTrigger className="w-full max-w-sm">
-							<DemoTriggerCard />
-						</ContextMenuTrigger>
-
-						<ContextMenuContent>
-							<ContextMenuItem>
-								<PencilIcon />
-								Edit
-								<ContextMenuShortcut>⌘E</ContextMenuShortcut>
-							</ContextMenuItem>
-							<ContextMenuItem>
-								<CopyIcon />
-								Duplicate
-								<ContextMenuShortcut>⌘D</ContextMenuShortcut>
-							</ContextMenuItem>
-							<ContextMenuSeparator />
-							<ContextMenuItem>
-								<ShareIcon />
-								Share
-							</ContextMenuItem>
-							<ContextMenuItem>
-								<ArchiveIcon />
-								Archive
-								<ContextMenuShortcut>⌘N</ContextMenuShortcut>
-							</ContextMenuItem>
-							<ContextMenuSeparator />
-							<ContextMenuItem variant="destructive">
-								<Trash2Icon />
-								Delete
-								<ContextMenuShortcut>⌘⌫</ContextMenuShortcut>
-							</ContextMenuItem>
-						</ContextMenuContent>
-					</ContextMenu>
-				</div>
-			</div>
-		</div>
 	);
 }
 

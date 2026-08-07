@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { EcommerceCheckoutExample } from "@/components/blog/creating-a-good-action-button/creating-a-good-action-button";
-import { CinematicContextMenuDemo } from "@/components/labs/context-menu";
+import { CinematicContextMenuDemo } from "@/components/labs/context-menu/demo";
 import { LiquidEjectDemo } from "@/components/labs/v2-liquid-connector/test-v2";
 import { createMetadata } from "@/lib/utils";
 
@@ -8,7 +8,14 @@ export const metadata = createMetadata({
 	title: "Labs · experiments by Julian Kominovic",
 	description:
 		"Interactive experiments and proof of concepts by Julian Kominovic: cinematic context menus, liquid SVG animations and micro-interactions built with React.",
-	keywords: ["Labs", "Experiments", "React", "Motion", "SVG", "Micro-interactions"],
+	keywords: [
+		"Labs",
+		"Experiments",
+		"React",
+		"Motion",
+		"SVG",
+		"Micro-interactions",
+	],
 	path: "/labs",
 });
 
