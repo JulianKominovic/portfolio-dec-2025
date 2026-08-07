@@ -37,8 +37,8 @@ export type GooeySpringConfig = {
 export function springFromSpeed(speed: number): GooeySpringConfig {
 	const t = Math.min(1, Math.max(0, speed));
 	return {
-		stiffness: 36 + t * 280,
-		damping: 14 + t * 10,
+		stiffness: 144 + t * 1120,
+		damping: 28 + t * 20,
 		mass: 1.5 - t * 0.7,
 	};
 }
@@ -47,8 +47,8 @@ export function springFromSpeed(speed: number): GooeySpringConfig {
 function annexSizeSpring(speed: number): GooeySpringConfig {
 	const t = Math.min(1, Math.max(0, speed));
 	return {
-		stiffness: 55 + t * 500,
-		damping: 12 + t * 16,
+		stiffness: 220 + t * 2000,
+		damping: 24 + t * 32,
 		mass: 1.4 - t * 0.6,
 	};
 }
@@ -57,19 +57,19 @@ function annexSizeSpring(speed: number): GooeySpringConfig {
 function annexTravelSpring(speed: number): GooeySpringConfig {
 	const t = Math.min(1, Math.max(0, speed));
 	return {
-		stiffness: 38 + t * 360,
-		damping: 16 + t * 14,
+		stiffness: 152 + t * 1440,
+		damping: 32 + t * 28,
 		mass: 1.55 - t * 0.55,
 	};
 }
 
 /**
  * Scale a base duration (seconds) by speed.
- * speed 0 → ~1.9× (inspect), speed 1 → ~0.5× (snappy).
+ * speed 0 → ~0.95×, speed 1 → ~0.25× (2× faster than before). 
  */
-function scaleDur(baseSec: number, speed: number, minSec = 0.04) {
+function scaleDur(baseSec: number, speed: number, minSec = 0.02) {
 	const t = Math.min(1, Math.max(0, speed));
-	const mul = 1.9 - t * 1.4;
+	const mul = (1.9 - t * 1.4) * 0.5;
 	return Math.max(minSec, baseSec * mul);
 }
 
@@ -115,8 +115,8 @@ const BULGE_CAP = 1.55;
 function reboundSpring(speed: number): GooeySpringConfig {
 	const t = Math.min(1, Math.max(0, speed));
 	return {
-		stiffness: 280 + t * 360,
-		damping: 10 + t * 8,
+		stiffness: 1120 + t * 1440,
+		damping: 20 + t * 16,
 		mass: 1.05 - t * 0.3,
 	};
 }
@@ -473,8 +473,8 @@ export function LiquidEject({
 
 		const runOpen = async () => {
 			const windup = scaleDur(WINDUP_S, speed);
-			const neckDur = scaleDur(NECK_RETRACT_S, speed);
-			const hitDur = scaleDur(HIT_SQUASH_S, speed, 0.03);
+const neckDur = scaleDur(NECK_RETRACT_S, speed);
+			const hitDur = scaleDur(HIT_SQUASH_S, speed, 0.015);
 			const sizeSpring = { type: "spring" as const, ...annexSizeSpring(speed) };
 			const travelSpring = {
 				type: "spring" as const,
@@ -651,7 +651,7 @@ export function LiquidEject({
 
 		const runClose = async () => {
 			const neckDur = scaleDur(NECK_RETRACT_S, speed);
-			const hitDur = scaleDur(HIT_SQUASH_S, speed, 0.03);
+			const hitDur = scaleDur(HIT_SQUASH_S, speed, 0.015);
 			const dentDur = scaleDur(0.2, speed);
 			const sizeSpring = { type: "spring" as const, ...annexSizeSpring(speed) };
 			const travelSpring = {
