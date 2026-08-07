@@ -6,7 +6,6 @@ export const metadata: Metadata = createMetadata({
 	title: "Javascript benchmarking playground by Julian Kominovic",
 	description:
 		"A simple yet useful Javascript Benchmarking Playground. Test your code performance and compare it with others. Compare CPU time of different algorithms and find the most efficient one. Visualize your results and share them with your team.",
-	ogImage: "https://jkominovic.dev/images/assets/og-benchmarking.png",
 	keywords: [
 		"Benchmarking",
 		"Playground",
@@ -19,6 +18,7 @@ export const metadata: Metadata = createMetadata({
 		"Data Structures",
 		"Performance",
 	],
+	path: "/benchmarks",
 });
 
 export default function BenchmarksPage() {

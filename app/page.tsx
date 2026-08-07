@@ -21,6 +21,52 @@ import { PROJECTS, WORKING_EXPERIENCE } from "./data/bio";
 export default function Page() {
 	return (
 		<>
+			<script
+				type="application/ld+json"
+				// biome-ignore lint/security/noDangerouslySetInnerHtml: sh
+				dangerouslySetInnerHTML={{
+					__html: JSON.stringify({
+						"@context": "https://schema.org",
+						"@graph": [
+							{
+								"@type": "WebSite",
+								name: "Julian Kominovic · Frontend Developer",
+								url: "https://jkominovic.dev",
+							},
+							{
+								"@type": "ProfilePage",
+								url: "https://jkominovic.dev",
+								mainEntity: {
+									"@type": "Person",
+									name: "Julian Kominovic",
+									url: "https://jkominovic.dev",
+									jobTitle: "Frontend Developer",
+									worksFor: {
+										"@type": "Organization",
+										name: "Koin",
+									},
+									image: "https://jkominovic.dev/og/og.png",
+									sameAs: [
+										"https://github.com/JulianKominovic",
+										"https://www.linkedin.com/in/jkominovic",
+										"https://x.com/juliankominovic",
+									],
+								},
+							},
+							{
+								"@type": "ItemList",
+								name: "Projects",
+								itemListElement: PROJECTS.map((project, index) => ({
+									"@type": "ListItem",
+									position: index + 1,
+									name: project.title,
+									url: project.url,
+								})),
+							},
+						],
+					}),
+				}}
+			/>
 			<main
 				id="hero"
 				className={clsx(
@@ -36,6 +82,7 @@ export default function Page() {
 							alt="Profile"
 							className="rounded-xl squircle size-12 rotate-3 ring-2 shadow-lg ring-white"
 							loading="eager"
+							priority
 							height={48}
 							src={profile}
 							width={48}

@@ -54,9 +54,9 @@
   "orientation": "portrait",
   "display": "minimal-ui",
   "lang": "en",
-  "name": "Julian Kominovic - Frontend developer - Resources",
-  "short_name": "Julian Kominovic Resources",
-  "start_url": "./smart-notes",
-  "scope": ".",
-  "description": "This is a collection of links to articles, tools, libraries, videos, podcasts, books, and anything that can help developers build better websites."
+  "name": "Julian Kominovic · Frontend Developer en Buenos Aires, Argentina",
+  "short_name": "Julian Kominovic",
+  "start_url": "/",
+  "scope": "/",
+  "description": "Frontend developer based in Buenos Aires, Argentina with more than 4 years of experience in fintech products and development tools."
 }

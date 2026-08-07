@@ -3,12 +3,18 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import clsx from "clsx";
 import { GeistMono } from "geist/font/mono";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Great_Vibes, Inter } from "next/font/google";
 import { createMetadata } from "@/lib/utils";
 import Footer from "../components/footer";
 
 export const metadata: Metadata = createMetadata({});
+
+export const viewport: Viewport = {
+	themeColor: "#fff",
+	width: "device-width",
+	initialScale: 1,
+};
 
 const serifFont = Great_Vibes({
 	subsets: ["latin"],

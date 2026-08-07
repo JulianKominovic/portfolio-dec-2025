@@ -84,7 +84,7 @@ export function playDisabledClickSound() {
 }
 
 export function createMetadata({
-	title = "Julian Kominovic - Frontend developer",
+	title = "Julian Kominovic · Frontend Developer en Buenos Aires, Argentina",
 	description = "Frontend developer based in Buenos Aires, Argentina with almost 3 years of experience in fintech products. I enjoy creating development tools to make developers' life easier.",
 	ogImage = "https://jkominovic.dev/og/og.png",
 	keywords = [
@@ -95,29 +95,34 @@ export function createMetadata({
 		"Typescript",
 		"Development tools",
 	],
+	path = "",
 }: {
 	title?: string;
 	description?: string;
 	ogImage?: string;
 	keywords?: string[];
+	path?: string;
 }): Metadata {
 	return {
 		metadataBase: new URL(baseUrl),
 		title,
 		description,
+		manifest: "/favicon/site.webmanifest",
+		alternates: {
+			canonical: new URL(path, baseUrl),
+		},
 		openGraph: {
 			images: ogImage,
 			type: "website",
 			title,
 			description,
-			url: baseUrl,
+			url: new URL(path, baseUrl),
 		},
 		twitter: {
 			title,
 			description,
 			images: ogImage,
 			card: "summary_large_image",
-			creatorId: "@juliankominovic",
 			creator: "@juliankominovic",
 		},
 		icons: [
