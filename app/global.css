@@ -71,6 +71,28 @@
 	}
 }
 
+@keyframes fade-up {
+	from {
+		opacity: 0;
+		transform: translateY(12px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes tab-content-in {
+	from {
+		opacity: 0;
+		transform: translateY(4px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
 @layer components {
 	.flex-wrap-balance {
 		flex-wrap: wrap;
@@ -88,6 +110,14 @@
 		.hover-lift:hover {
 			transform: scale(1.03);
 		}
+	}
+
+	.animate-fade-up {
+		animation: fade-up 400ms var(--ease-out) backwards;
+	}
+
+	[data-slot="tabs-content"][data-state="active"] {
+		animation: tab-content-in 150ms var(--ease-out);
 	}
 	h1,
 	h2,
@@ -210,6 +240,7 @@ table {
 	*::after {
 		animation-duration: 0.01ms !important;
 		animation-iteration-count: 1 !important;
+		animation-delay: 0ms !important;
 		transition-duration: 0.01ms !important;
 		scroll-behavior: auto !important;
 	}

@@ -44,6 +44,14 @@ const subListVariants = {
 	show: { transition: { staggerChildren: STAGGER_DELAY } },
 } as const;
 
+const SLIDE_DISTANCE = 48;
+
+const subPanelVariants = {
+	enter: (dir: number) => ({ x: -dir * SLIDE_DISTANCE, opacity: 0 }),
+	center: { x: 0, opacity: 1 },
+	exit: (dir: number) => ({ x: dir * SLIDE_DISTANCE, opacity: 0 }),
+};
+
 type ChildItem = {
 	url: string;
 	title: string;
@@ -111,6 +119,7 @@ export default function NavbarClient({
 	const scaleY = useMotionValue(1);
 	const [hash, setHash] = useState("");
 	const [openHref, setOpenHref] = useState<string | null>(null);
+	const [direction, setDirection] = useState(0);
 	const containerRef = useRef<HTMLDivElement>(null);
 	const openItem = items.find((item) => item.href === openHref);
 
@@ -128,11 +137,20 @@ export default function NavbarClient({
 
 	const handleToggle = (href: string) => {
 		if (openHref === href) {
+			setDirection(0);
 			setOpenHref(null);
 			return;
 		}
+		if (openHref === null) {
+			setDirection(0);
+			setOpenHref(href);
+			void punch();
+			return;
+		}
+		const oldIndex = items.findIndex((item) => item.href === openHref);
+		const newIndex = items.findIndex((item) => item.href === href);
+		setDirection(newIndex < oldIndex ? 1 : -1);
 		setOpenHref(href);
-		void punch();
 	};
 
 	useEffect(() => {
@@ -177,12 +195,22 @@ export default function NavbarClient({
 				className="fixed top-4 left-1/2 z-50 -translate-x-1/2"
 			>
 				<motion.nav
+					layout
 					initial={{ y: -24, opacity: 0 }}
 					animate={{ y: 0, opacity: 1 }}
-					transition={{ duration: 0.5, ease: easeOut }}
-					style={{ scaleX, scaleY, transformOrigin: "top center" }}
+					transition={{
+						y: { duration: 0.5, ease: easeOut },
+						opacity: { duration: 0.5, ease: easeOut },
+						layout: { type: "spring", stiffness: 400, damping: 35 },
+					}}
+					style={{
+						scaleX,
+						scaleY,
+						borderRadius: 32,
+						transformOrigin: "top center",
+					}}
 					aria-label="Primary"
-					className="flex flex-col items-stretch rounded-full border border-neutral-200/60 bg-white/90 px-2 py-1.5 shadow-border backdrop-blur-sm"
+					className="relative flex flex-col items-stretch border border-neutral-200/60 bg-white/90 px-2 py-1.5 shadow-border backdrop-blur-sm"
 				>
 					<ul className="flex items-center gap-1">
 						{items.map((item) => {
@@ -227,18 +255,19 @@ export default function NavbarClient({
 							);
 						})}
 					</ul>
-					<AnimatePresence initial={false}>
+					<AnimatePresence mode="popLayout" custom={direction} initial={false}>
 						{openItem && (
 							<motion.div
 								key={openItem.href}
-								initial={{ height: 0, opacity: 0 }}
-								animate={{ height: "auto", opacity: 1 }}
-								exit={{ height: 0, opacity: 0 }}
+								variants={subPanelVariants}
+								initial="enter"
+								animate="center"
+								exit="exit"
 								transition={
 									reduced
 										? { duration: 0 }
 										: {
-												height: { duration: 0.32, ease: easeOut },
+												x: { duration: 0.25, ease: easeOut },
 												opacity: { duration: 0.18, ease: easeOut },
 											}
 								}
@@ -248,7 +277,6 @@ export default function NavbarClient({
 									variants={subListVariants}
 									initial="hidden"
 									animate="show"
-									exit="hidden"
 									className="flex flex-col gap-0.5 px-1 pb-1"
 								>
 									{openItem.children?.map((child) => {

@@ -7,7 +7,7 @@ import type { Metadata, Viewport } from "next";
 import { Great_Vibes, Inter } from "next/font/google";
 import { createMetadata } from "@/lib/utils";
 import Footer from "../components/footer";
-import Navbar from "../components/navbar";
+// import Navbar from "../components/navbar";
 
 export const metadata: Metadata = createMetadata({});
 
@@ -56,7 +56,8 @@ export default function RootLayout({
 					alt=""
 					className="absolute top-full left-0 w-full h-full object-cover -z-10 blur-[400px] opacity-20"
 				/> */}
-				<Navbar />
+				{/* Navbar desactivado temporalmente: se va a iterar/fixear antes de volver a usarlo */}
+				{/* <Navbar /> */}
 				{children}
 				<Footer />
 				{/* <svg

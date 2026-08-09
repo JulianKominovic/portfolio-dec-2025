@@ -1,0 +1,13 @@
+{
+  "worktree": {
+    "setup": "bun install"
+  },
+  "metadataGeneration": {
+    "branchName": {
+      "instructions": "Use Prefixes to Indicate Purpose\nPrefixing branch names based on their purpose helps categorize and identify them quickly. Here are some common prefixes:\n\nfeature/: For new features or functionalities.\nbugfix/: For fixing bugs in the code.\nhotfix/: For urgent patches, usually applied to production.\ndesign/: For user interface or user experience updates.\nrefactor/: For improving code structure without changing functionality.\ntest/: For writing or improving automated tests.\ndoc/: For documentation updates."
+    },
+    "commitMessage": {
+      "instructions": "Use Conventional Commits with a scope"
+    }
+  }
+}

@@ -56,6 +56,8 @@ export const WORKING_EXPERIENCE = [
 	},
 ];
 
+export const CURRENT_ROLE = WORKING_EXPERIENCE[0];
+
 /**
  *
  * @param year The year of the date.
@@ -87,9 +89,65 @@ export const PROJECTS: {
 		title: "Libritus",
 		description:
 			"Modern reading app designed to make reading simple, elegant, and enjoyable. Clean interface for exploring texts, highlighting key parts, and managing your reading experience without distractions. Built for curious minds. AI powered.",
-		url: "https://github.com/JulianKominovic/libritus",
+		url: "https://libritus.jkominovic.dev/",
 		logo: "/logos/libritus-logo.webp",
 		progress: [
+			{
+				title: "Infinite PDF canvas",
+				description:
+					"Pan and zoom virtualized pages on a whiteboard, rendered by PDFium. The document is the axis. The space around it is yours.",
+				date: date(2026, 8, 2),
+				image: "images/libritus/feature-canvas-thumb.webp",
+			},
+			{
+				title: "Highlights from selection",
+				description:
+					"Select text and lock a highlight onto the canvas. Color it, copy the text, or grow a note or search from it.",
+				date: date(2026, 7, 25),
+				image: "images/libritus/feature-highlights-thumb.webp",
+			},
+			{
+				title: "Web search capture",
+				description:
+					"Search from a highlight, place a browser, or paste or drop a link onto the canvas. Browse in-app, then pin a screenshot beside the text.",
+				date: date(2026, 7, 25),
+				image: "images/libritus/feature-search-capture-thumb.webp",
+			},
+			{
+				title: "Outline, thumbs, annotations",
+				description:
+					"Jump via outline, page thumbs, or a list of your highlights, notes, captures, and canvas images. The sidebar finds your place. Research stays on the canvas.",
+				date: date(2026, 7, 19),
+				image: "images/libritus/feature-outline-thumb.webp",
+			},
+			{
+				title: "WYSIWYG notes",
+				description:
+					"Drop a rich note anywhere, or grow one from a highlight. It sits next to the passage that sparked it.",
+				date: date(2026, 7, 18),
+				image: "images/libritus/feature-notes-thumb.webp",
+			},
+			{
+				title: "Freehand and diagrams",
+				description:
+					"Arrows, shapes, and sketches with Excalidraw tools, drawn on top of the PDF.",
+				date: date(2026, 7, 18),
+				image: "images/libritus/feature-diagrams-thumb.webp",
+			},
+			{
+				title: "Sessions that persist",
+				description:
+					"Camera and annotations autosave per PDF. Come back and continue where you stopped. Everything stays on your machine — fully offline.",
+				date: date(2026, 7, 17),
+				image: "images/libritus/feature-sessions-thumb.webp",
+			},
+			{
+				title: "Research canvas",
+				description:
+					"PDF pages as the axis of a whiteboard instead of a vertical scroll strip. Pan and zoom to work around the text.",
+				date: date(2026, 7, 17),
+				image: "images/libritus/hero-thumb.webp",
+			},
 			{
 				title: "Lock horizontal scroll",
 				description:
